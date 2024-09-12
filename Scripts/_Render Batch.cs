@@ -132,10 +132,14 @@ public class EntryPoint {
                         
                     }
 
-
+                    String templateNameAppended = "";
+                    if(selectedTemplates.Count > 1){
+                      templateNameAppended = " - " + FixFileName(renderItem.Template.Name) ; 
+  
+                    } 
                     String regionFilename = Path.Combine(outputDirectory,
                                                             FixFileName(region.Label) + 
-                                                            (selectedTemplates.Count > 1)? " - " + FixFileName(renderItem.Template.Name) : "" + 
+                                                            templateNameAppended + 
 											                renderItem.Extension
                     );
 
