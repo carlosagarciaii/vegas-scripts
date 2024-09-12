@@ -34,7 +34,6 @@ public class EntryPoint {
 
     ArrayList SelectedTemplates = new ArrayList();
 
-    CheckBox IncludeTemplateNameBox = new CheckBox();
 
     public void FromVegas(Vegas vegas)
     {
@@ -252,6 +251,8 @@ public class EntryPoint {
     RadioButton RenderRegionsButton;
     RadioButton RenderSelectionButton;
 
+    CheckBox IncludeTemplateNameBox;
+
     DialogResult ShowBatchRenderDialog()
     {
         Form dlog = new Form();
@@ -280,7 +281,7 @@ public class EntryPoint {
         TemplateTree.Left = 10;
         TemplateTree.Width = dlog.Width - 35;
         TemplateTree.Top = BrowseButton.Bottom + 10;
-        TemplateTree.Height = 400;
+        TemplateTree.Height = 300;
         TemplateTree.CheckBoxes = true;
         TemplateTree.AfterCheck += new TreeViewEventHandler(this.HandleTreeViewCheck);
         dlog.Controls.Add(TemplateTree);
@@ -304,7 +305,7 @@ public class EntryPoint {
                                                 buttonTop,
                                                 true);
         RenderRegionsButton.Checked = true;
-        
+        CheckBox IncludeTemplateNameBox  = new CheckBox();
         IncludeTemplateNameBox.Text = "Include Template Name in File Name?";
         IncludeTemplateNameBox.Checked = false;
         IncludeTemplateNameBox.Enabled = true;
