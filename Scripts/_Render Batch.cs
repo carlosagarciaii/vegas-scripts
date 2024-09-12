@@ -34,6 +34,7 @@ public class EntryPoint {
 
     ArrayList SelectedTemplates = new ArrayList();
 
+
     public void FromVegas(Vegas vegas)
     {
         myVegas = vegas;
@@ -131,9 +132,14 @@ public class EntryPoint {
                         
                     }
 
+                    String templateNameAppended = "";
+                    if(selectedTemplates.Count > 1){
+                      templateNameAppended = " - " + FixFileName(renderItem.Template.Name) ; 
+  
+                    } 
                     String regionFilename = Path.Combine(outputDirectory,
-                                                            FixFileName(region.Label) + " - " +
-                                                            FixFileName(renderItem.Template.Name) + 
+                                                            FixFileName(region.Label) + 
+                                                            templateNameAppended + 
 											                renderItem.Extension
                     );
 
@@ -250,6 +256,8 @@ public class EntryPoint {
     RadioButton RenderRegionsButton;
     RadioButton RenderSelectionButton;
 
+    CheckBox IncludeTemplateNameBox;
+
     DialogResult ShowBatchRenderDialog()
     {
         Form dlog = new Form();
@@ -302,7 +310,8 @@ public class EntryPoint {
                                                 buttonTop,
                                                 true);
         RenderRegionsButton.Checked = true;
-        
+
+            
         Button okButton = new Button();
         okButton.Text = "OK";
         okButton.Left = dlog.Width - (2*(buttonWidth+20));
@@ -350,6 +359,26 @@ public class EntryPoint {
         return textbox;
     }
 
+    CheckBox AddCheckBox(Form dlog,String labelName, int left, int top, bool isChecked = false, bool isEnabled = true){
+        Label label = new Label();
+        label.AutoSize = true;
+        label.Text = labelName;
+        label.Left = left;
+        label.Top = top + 4;
+        label.Enabled = isEnabled;
+        dlog.Controls.Add(label);
+
+        CheckBox checkBox = new CheckBox();
+        checkBox.Text = labelName;
+        checkBox.Checked = isChecked;
+        checkBox.Enabled = isEnabled;
+        checkBox.AutoSize = true;
+        checkBox.FlatStyle = FlatStyle.System;
+        checkBox.Left = label.Right;
+        checkBox.Anchor = AnchorStyles.Left|AnchorStyles.Right;
+
+        return checkBox;
+    }
     RadioButton AddRadioControl(Form dlog, String labelName, int left, int top, bool enabled)
     {
         Label label = new Label();
