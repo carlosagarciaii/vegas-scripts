@@ -314,7 +314,7 @@ public class EntryPoint {
                                                 RenderSelectionButton.Right,
                                                 buttonTop,
                                                 true);
-        RenderProjectButton.Checked = true;
+        RenderRegionsButton.Checked = true;
         
         Button okButton = new Button();
         okButton.Text = "OK";
