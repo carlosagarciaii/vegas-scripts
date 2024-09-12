@@ -280,7 +280,7 @@ public class EntryPoint {
         TemplateTree.Left = 10;
         TemplateTree.Width = dlog.Width - 35;
         TemplateTree.Top = BrowseButton.Bottom + 10;
-        TemplateTree.Height = 300;
+        TemplateTree.Height = 400;
         TemplateTree.CheckBoxes = true;
         TemplateTree.AfterCheck += new TreeViewEventHandler(this.HandleTreeViewCheck);
         dlog.Controls.Add(TemplateTree);
