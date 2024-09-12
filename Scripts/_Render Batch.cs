@@ -132,9 +132,10 @@ public class EntryPoint {
                         
                     }
 
+
                     String regionFilename = Path.Combine(outputDirectory,
-                                                            FixFileName(region.Label) + " - " +
-                                                            FixFileName(renderItem.Template.Name) + 
+                                                            FixFileName(region.Label) + 
+                                                            (selectedTemplates.Count > 1)? " - " + FixFileName(renderItem.Template.Name) : "" + 
 											                renderItem.Extension
                     );
 
@@ -261,7 +262,6 @@ public class EntryPoint {
         dlog.MaximizeBox = false;
         dlog.StartPosition = FormStartPosition.CenterScreen;
         dlog.Width = 610;
-        dlog.Height = 720;
         dlog.FormClosing += this.HandleFormClosing;
 
         int titleBarHeight = dlog.Height - dlog.ClientSize.Height;
