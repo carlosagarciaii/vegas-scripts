@@ -305,16 +305,13 @@ public class EntryPoint {
                                                 buttonTop,
                                                 true);
         RenderRegionsButton.Checked = true;
-        CheckBox IncludeTemplateNameBox  = new CheckBox();
-        IncludeTemplateNameBox.Text = "Include Template Name in File Name?";
-        IncludeTemplateNameBox.Checked = false;
-        IncludeTemplateNameBox.Enabled = true;
-        IncludeTemplateNameBox.AutoSize = false;
-        IncludeTemplateNameBox.FlatStyle = FlatStyle.System;
-        IncludeTemplateNameBox.Margin = new Padding(16,8,8,4);
-        IncludeTemplateNameBox.Anchor = AnchorStyles.Left|AnchorStyles.Right;
-//        layout.Controls.Add(IncludeTemplateNameBox);
-//        layout.SetColumnSpan(IncludeTemplateNameBox, 3);
+
+
+        IncludeTemplateNameBox = AddCheckBox(   dlog,
+                                                "Render Template Name",
+                                                6,
+                                                RenderProjectButton.Bottom + 16,
+                                                );
             
         Button okButton = new Button();
         okButton.Text = "OK";
@@ -363,6 +360,28 @@ public class EntryPoint {
         return textbox;
     }
 
+    CheckBox AddCheckBox(Form dlog,String labelName, int left, int top, bool isChecked = false, bool isEnabled = true){
+        Label label = new Label();
+        label.AutoSize = true;
+        label.Text = labelName;
+        label.Left = left;
+        label.Top = top + 4;
+        label.Enabled = enabled;
+        dlog.Controls.Add(label);
+
+        CheckBox checkBox = new CheckBox();
+        checkBox.Text = labelName;
+        checkBox.Checked = isChecked;
+        checkBox.Enabled = isEnabled;
+        checkBox.AutoSize = false;
+        checkBox.FlatStyle = FlatStyle.System;
+        checkBox.Left = label.Right;
+        checkBox.width = 36;
+        checkBox.top = top;
+        checkBox.Anchor = AnchorStyles.Left|AnchorStyles.Right;
+
+        return checkBox;
+    }
     RadioButton AddRadioControl(Form dlog, String labelName, int left, int top, bool enabled)
     {
         Label label = new Label();
