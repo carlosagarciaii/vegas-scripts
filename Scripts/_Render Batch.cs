@@ -261,6 +261,7 @@ public class EntryPoint {
         dlog.MaximizeBox = false;
         dlog.StartPosition = FormStartPosition.CenterScreen;
         dlog.Width = 610;
+        dlog.Height = 720;
         dlog.FormClosing += this.HandleFormClosing;
 
         int titleBarHeight = dlog.Height - dlog.ClientSize.Height;
