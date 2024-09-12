@@ -34,6 +34,8 @@ public class EntryPoint {
 
     ArrayList SelectedTemplates = new ArrayList();
 
+    CheckBox IncludeTemplateNameBox = new CheckBox();
+
     public void FromVegas(Vegas vegas)
     {
         myVegas = vegas;
@@ -303,6 +305,16 @@ public class EntryPoint {
                                                 true);
         RenderRegionsButton.Checked = true;
         
+        IncludeTemplateNameBox.Text = "Include Template Name in File Name?";
+        IncludeTemplateNameBox.Checked = false;
+        IncludeTemplateNameBox.Enabled = true;
+        IncludeTemplateNameBox.AutoSize = false;
+        IncludeTemplateNameBox.FlatStyle = FlatStyle.System;
+        IncludeTemplateNameBox.Margin = new Padding(16,8,8,4);
+        IncludeTemplateNameBox.Anchor = AnchorStyles.Left|AnchorStyles.Right;
+        layout.Controls.Add(IncludeTemplateNameBox);
+        layout.SetColumnSpan(IncludeTemplateNameBox, 3);
+            
         Button okButton = new Button();
         okButton.Text = "OK";
         okButton.Left = dlog.Width - (2*(buttonWidth+20));
