@@ -310,7 +310,7 @@ public class EntryPoint {
         IncludeTemplateNameBox = AddCheckBox(   dlog,
                                                 "Render Template Name",
                                                 6,
-                                                RenderProjectButton.Bottom + 16,
+                                                RenderProjectButton.Bottom + 16
                                                 );
             
         Button okButton = new Button();
