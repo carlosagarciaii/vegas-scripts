@@ -131,25 +131,11 @@ public class EntryPoint {
                         
                     }
 
-//                    MessageBox.Show(propList,"Property List",MessageBoxButtons.OK);
-
                     String regionFilename = Path.Combine(outputDirectory,
                                                             FixFileName(region.Label) +
 											                renderItem.Extension
                     );
-/*
-                    String regionFilename = String.Format("{0}[{1}]{2}",
-                                                          filename,
-                                                          regionIndex.ToString(),
-                                                          renderItem.Extension);		  
-*/
-/*
-                    String regionFilename = String.Format("{0}[{1}]{2}",
-                                                          filename,
-                                                          FixFileName(region.Name),
-														  //	regionIndex.ToString(),
-                                                          renderItem.Extension);
-*/
+
                     RenderArgs args = new RenderArgs();
                     args.OutputFile = regionFilename;
                     args.RenderTemplate = renderItem.Template;
