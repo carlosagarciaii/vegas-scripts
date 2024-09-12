@@ -312,8 +312,8 @@ public class EntryPoint {
         IncludeTemplateNameBox.FlatStyle = FlatStyle.System;
         IncludeTemplateNameBox.Margin = new Padding(16,8,8,4);
         IncludeTemplateNameBox.Anchor = AnchorStyles.Left|AnchorStyles.Right;
-        layout.Controls.Add(IncludeTemplateNameBox);
-        layout.SetColumnSpan(IncludeTemplateNameBox, 3);
+//        layout.Controls.Add(IncludeTemplateNameBox);
+//        layout.SetColumnSpan(IncludeTemplateNameBox, 3);
             
         Button okButton = new Button();
         okButton.Text = "OK";
