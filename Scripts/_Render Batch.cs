@@ -373,11 +373,9 @@ public class EntryPoint {
         checkBox.Text = labelName;
         checkBox.Checked = isChecked;
         checkBox.Enabled = isEnabled;
-        checkBox.AutoSize = false;
+        checkBox.AutoSize = true;
         checkBox.FlatStyle = FlatStyle.System;
         checkBox.Left = label.Right;
-//        checkBox.width = 36;
-//        checkBox.top = top;
         checkBox.Anchor = AnchorStyles.Left|AnchorStyles.Right;
 
         return checkBox;
