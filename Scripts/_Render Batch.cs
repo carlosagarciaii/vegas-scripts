@@ -20,7 +20,7 @@ public class EntryPoint {
     // set this to true if you want to allow files to be overwritten
     bool OverwriteExistingFiles = false;
 
-    String defaultBasePath = @"E:\_Render\";
+    String defaultBasePath = @"E:\_Render\RenderFile";
     const int QUICKTIME_MAX_FILE_NAME_LENGTH = 55;
 
     ScriptPortal.Vegas.Vegas myVegas = null;
