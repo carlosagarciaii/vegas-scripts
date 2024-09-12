@@ -366,7 +366,7 @@ public class EntryPoint {
         label.Text = labelName;
         label.Left = left;
         label.Top = top + 4;
-        label.Enabled = enabled;
+        label.Enabled = isEnabled;
         dlog.Controls.Add(label);
 
         CheckBox checkBox = new CheckBox();
@@ -376,8 +376,8 @@ public class EntryPoint {
         checkBox.AutoSize = false;
         checkBox.FlatStyle = FlatStyle.System;
         checkBox.Left = label.Right;
-        checkBox.width = 36;
-        checkBox.top = top;
+//        checkBox.width = 36;
+//        checkBox.top = top;
         checkBox.Anchor = AnchorStyles.Left|AnchorStyles.Right;
 
         return checkBox;
