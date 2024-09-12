@@ -299,21 +299,21 @@ public class EntryPoint {
         int buttonTop = TemplateTree.Bottom + 16;
         int buttonsLeft = dlog.Width - (2*(buttonWidth+10));
 
-        RenderProjectButton = AddRadioControl(dlog,
-                                              "Render Project",
-                                              6,
-                                              buttonTop,
-                                              true);
+        RenderProjectButton = AddRadioControl(  dlog,
+                                                "Render Project",
+                                                6,
+                                                buttonTop,
+                                                (0 != myVegas.SelectionLength.Nanos));
         RenderSelectionButton = AddRadioControl(dlog,
                                                 "Render Selection",
                                                 RenderProjectButton.Right,
                                                 buttonTop,
                                                 (0 != myVegas.SelectionLength.Nanos));
-        RenderRegionsButton = AddRadioControl(dlog,
-                                              "Render Regions",
-                                              RenderSelectionButton.Right,
-                                              buttonTop,
-                                              (0 != myVegas.Project.Regions.Count));
+        RenderRegionsButton = AddRadioControl(  dlog,
+                                                "Render Regions",
+                                                RenderSelectionButton.Right,
+                                                buttonTop,
+                                                true);
         RenderProjectButton.Checked = true;
         
         Button okButton = new Button();
