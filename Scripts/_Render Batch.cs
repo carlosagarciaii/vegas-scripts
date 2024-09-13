@@ -140,6 +140,7 @@ public class EntryPoint {
                     String regionFilename = Path.Combine(outputDirectory,
                                                             FixFileName(region.Label) + 
                                                             templateNameAppended + 
+                                                            " (" + FixFileName(baseFileName) + ")" +
 											                renderItem.Extension
                     );
 
