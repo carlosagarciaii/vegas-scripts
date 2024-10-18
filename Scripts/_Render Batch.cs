@@ -387,12 +387,11 @@ public class EntryPoint {
         dlog.Controls.Add(label);
         
         CheckBox checkBox = new CheckBox();
-        checkBox.Text = "Derp"; //string.Empty; //labelName;
+        checkBox.Text = string.Empty; //labelName;
         checkBox.Checked = isChecked;
         checkBox.Enabled = isEnabled;
         checkBox.IsAccessible = isEnabled;
         checkBox.AutoSize = true;
-//        checkBox.Size = new Size(20,20);
         checkBox.FlatStyle = FlatStyle.System;
         checkBox.Left = label.Right + 20;
         checkBox.Top = label.Top;
