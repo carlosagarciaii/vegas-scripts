@@ -684,7 +684,7 @@ public class EntryPoint {
 
     RenderTemplate GetTemplateByName(string templateName){
         if (templateName.IsNullOrEmpty || templateName.Trim() == "") {
-            throw new exception("Template Name Cannot be Empty");
+            throw new Exception("Template Name Cannot be Empty");
         }
         RenderTemplate foundTemplate;
 
@@ -697,7 +697,7 @@ public class EntryPoint {
             }
         }
         string errorMsg = "Failed to find Render Template: " + templateName;
-        throw new exception(errorMsg);
+        throw new Exception(errorMsg);
 
     }
 
