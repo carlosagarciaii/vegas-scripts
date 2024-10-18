@@ -300,6 +300,7 @@ public class EntryPoint {
         int buttonTop = TemplateTree.Bottom + 16;
         int buttonsLeft = dlog.Width - (2*(buttonWidth+10));
 
+        dlog.SuspendLayout();
         RenderCreateShortsCheckBox = AddCheckBox( dlog,
                                                 "Render Shorts",
                                                 6,
@@ -308,7 +309,8 @@ public class EntryPoint {
                                                 );
 
         buttonTop = RenderCreateShortsCheckBox.Bottom + 16;
-
+        dlog.ResumeLayout();
+        
         RenderProjectButton = AddRadioControl(  dlog,
                                                 "Render Project",
                                                 6,
