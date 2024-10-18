@@ -154,7 +154,7 @@ public class EntryPoint {
                     args.OutputFile = regionFilename;
 
                     // RENDER SHORTS
-                    if (region.Label.ToLower().contains("#short")){
+                    if (region.Label.ToLower().Contains("#short")){
                         // TODO: Update Render Template
                         args.RenderTemplate = GetTemplateByName(shortRenderTemplateName);
 
@@ -683,14 +683,14 @@ public class EntryPoint {
     }
 
     RenderTemplate GetTemplateByName(string templateName){
-        if (templateName.IsNullOrEmpty || templateName.Trim() == ""){
+        if (templateName.IsNullOrEmpty || templateName.Trim() == "") {
             throw new exception("Template Name Cannot be Empty");
         }
-        RenderTemplate foundTemplate = new RenderTemplate();
+        RenderTemplate foundTemplate;
 
         foreach (Renderer renderer in myVegas.Renderers){   
             foreach (RenderTemplate renderTemplate in renderer.Templates){
-                if (templateName.Name.Equals(templateName,StringComparison.OrdinalIgnoreCase))
+                if (templateName.Name.ToLower().Contains(templateName.ToLower()))
                 {
                     return foundTemplate;
                 }
