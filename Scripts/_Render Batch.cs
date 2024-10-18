@@ -389,7 +389,7 @@ public class EntryPoint {
         checkBox.Text = "  "; //labelName;
         checkBox.Checked = isChecked;
         checkBox.Enabled = isEnabled;
-        checkBox.Show = isEnabled;
+        checkBox.IsAccessible = isEnabled;
         checkBox.AutoSize = true;
         checkBox.FlatStyle = FlatStyle.System;
         checkBox.Left = label.Right + 5;
