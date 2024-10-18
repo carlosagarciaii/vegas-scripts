@@ -391,7 +391,7 @@ public class EntryPoint {
         checkBox.Enabled = isEnabled;
         checkBox.IsAccessible = isEnabled;
         checkBox.AutoSize = false;
-        checkBox.size = new Size(20,20);
+        checkBox.Size = new Size(20,20);
         checkBox.FlatStyle = FlatStyle.System;
         checkBox.Left = label.Right + 20;
         checkBox.Top = label.Top;
