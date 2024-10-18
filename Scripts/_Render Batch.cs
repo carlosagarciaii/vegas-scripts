@@ -395,7 +395,6 @@ public class EntryPoint {
         checkBox.FlatStyle = FlatStyle.System;
         checkBox.Left = label.Right + 20;
         checkBox.Top = label.Top;
-        checkBox.Anchor = AnchorStyles.Left;    //|AnchorStyles.Right;
         dlog.Controls.Add(checkBox);
 
         return checkBox;
