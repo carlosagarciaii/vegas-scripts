@@ -390,8 +390,8 @@ public class EntryPoint {
         checkBox.Checked = isChecked;
         checkBox.Enabled = isEnabled;
         checkBox.IsAccessible = isEnabled;
-        checkBox.AutoSize = false;
-        checkBox.Size = new Size(20,20);
+        checkBox.AutoSize = true;
+//        checkBox.Size = new Size(20,20);
         checkBox.FlatStyle = FlatStyle.System;
         checkBox.Left = label.Right + 20;
         checkBox.Top = label.Top;
