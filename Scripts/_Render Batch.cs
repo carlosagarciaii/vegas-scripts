@@ -340,7 +340,7 @@ public class EntryPoint {
         Button cancelButton = new Button();
         cancelButton.Text = "Cancel";
         cancelButton.Left = dlog.Width - (1*(buttonWidth+20));
-        cancelButton.Top = buttonTop + 25; //buttonTop;
+        cancelButton.Top = buttonTop;
         cancelButton.Height = cancelButton.Font.Height + 12;
         cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
         dlog.CancelButton = cancelButton;
@@ -390,7 +390,7 @@ public class EntryPoint {
         checkBox.AutoSize = true;
         checkBox.FlatStyle = FlatStyle.System;
         checkBox.Left = label.Right + 5;
-        checkBox.Top = top;
+        checkBox.Top = top + 25;
         checkBox.Anchor = AnchorStyles.Left|AnchorStyles.Right;
         dlog.Controls.Add(checkBox);
 
