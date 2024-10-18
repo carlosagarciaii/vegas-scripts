@@ -687,7 +687,6 @@ public class EntryPoint {
         {
             throw new Exception("Template Name Cannot be Empty");
         }
-        RenderTemplate foundTemplate;
 
         foreach (Renderer renderer in myVegas.Renderers)
         {   
@@ -695,7 +694,7 @@ public class EntryPoint {
             {
                 if (renderTemplate.Name.ToLower().Contains(templateName.ToLower()))
                 {
-                    return foundTemplate;
+                    return renderTemplate;
                 }
             }
         }
