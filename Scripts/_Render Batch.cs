@@ -310,7 +310,7 @@ public class EntryPoint {
 
         buttonTop = RenderCreateShortsCheckBox.Bottom + 16;
         dlog.ResumeLayout();
-        
+
         RenderProjectButton = AddRadioControl(  dlog,
                                                 "Render Project",
                                                 6,
@@ -389,6 +389,7 @@ public class EntryPoint {
         checkBox.Text = "  "; //labelName;
         checkBox.Checked = isChecked;
         checkBox.Enabled = isEnabled;
+        checkBox.Show = isEnabled;
         checkBox.AutoSize = true;
         checkBox.FlatStyle = FlatStyle.System;
         checkBox.Left = label.Right + 5;
