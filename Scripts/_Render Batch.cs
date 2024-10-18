@@ -349,7 +349,7 @@ public class EntryPoint {
         dlog.Controls.Add(cancelButton);
 
         dlog.Height = titleBarHeight + okButton.Bottom + 8;
-        dlog.ShowInTaskbar = false;
+        dlog.ShowInTaskbar = true;
 
         FillTemplateTree();
 
@@ -389,7 +389,7 @@ public class EntryPoint {
         checkBox.Text = "Derp"; //string.Empty; //labelName;
         checkBox.Checked = isChecked;
         checkBox.Enabled = isEnabled;
-        checkBox.IsAccessible = isEnabled;
+//        checkBox.IsAccessible = isEnabled;
         checkBox.AutoSize = true;
 //        checkBox.Size = new Size(20,20);
         checkBox.FlatStyle = FlatStyle.System;
