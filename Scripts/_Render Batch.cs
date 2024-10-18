@@ -300,7 +300,7 @@ public class EntryPoint {
         int buttonTop = TemplateTree.Bottom + 16;
         int buttonsLeft = dlog.Width - (2*(buttonWidth+10));
 
-        RenderCreateShortsCheckBox AddCheckBox( dlog,
+        RenderCreateShortsCheckBox = AddCheckBox( dlog,
                                                 "Render Shorts",
                                                 6,
                                                 600,
