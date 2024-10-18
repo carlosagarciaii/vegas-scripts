@@ -383,8 +383,8 @@ public class EntryPoint {
         label.Left = left;
         label.Top = top + 4;
         label.Enabled = isEnabled;
-        dlog.Controls.Add(label);
-
+//        dlog.Controls.Add(label);
+        
         CheckBox checkBox = new CheckBox();
         checkBox.Text = "Derp"; //string.Empty; //labelName;
         checkBox.Checked = isChecked;
