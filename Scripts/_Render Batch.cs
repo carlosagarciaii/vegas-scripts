@@ -683,7 +683,7 @@ public class EntryPoint {
     }
 
     RenderTemplate GetTemplateByName(string templateName){
-        if (templateName.IsNullOrEmpty || templateName.Trim() == "") 
+        if (string.IsNullOrEmpty(templateName) || templateName.Trim() == "") 
         {
             throw new Exception("Template Name Cannot be Empty");
         }
