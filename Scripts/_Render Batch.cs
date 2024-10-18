@@ -387,7 +387,7 @@ public class EntryPoint {
         dlog.Controls.Add(label);
         
         CheckBox checkBox = new CheckBox();
-        checkBox.Text = string.Empty; //labelName;
+        checkBox.Text = "   "; //string.Empty; //labelName;
         checkBox.Checked = isChecked;
         checkBox.Enabled = isEnabled;
         checkBox.IsAccessible = isEnabled;
