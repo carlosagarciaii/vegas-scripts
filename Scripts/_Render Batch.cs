@@ -383,19 +383,19 @@ public class EntryPoint {
         label.Left = left;
         label.Top = top + 4;
         label.Enabled = isEnabled;
-//        dlog.Controls.Add(label);
+        dlog.Controls.Add(label);
         
         CheckBox checkBox = new CheckBox();
         checkBox.Text = "Derp"; //string.Empty; //labelName;
         checkBox.Checked = isChecked;
         checkBox.Enabled = isEnabled;
-//        checkBox.IsAccessible = isEnabled;
+        checkBox.IsAccessible = isEnabled;
         checkBox.AutoSize = true;
 //        checkBox.Size = new Size(20,20);
         checkBox.FlatStyle = FlatStyle.System;
-        checkBox.Left = left; // label.Right + 20;
-        checkBox.Top = top; // label.Top;
-        checkBox.Anchor = AnchorStyles.Left;    //|AnchorStyles.Right;
+        checkBox.Left = label.Right + 20;
+        checkBox.Top = label.Top;
+        checkBox.Anchor = AnchorStyles.Right;    //|AnchorStyles.Right;
         dlog.Controls.Add(checkBox);
 
         return checkBox;
