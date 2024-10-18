@@ -340,7 +340,7 @@ public class EntryPoint {
         Button cancelButton = new Button();
         cancelButton.Text = "Cancel";
         cancelButton.Left = dlog.Width - (1*(buttonWidth+20));
-        cancelButton.Top = buttonTop;
+        cancelButton.Top = buttonTop + 25; //buttonTop;
         cancelButton.Height = cancelButton.Font.Height + 12;
         cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
         dlog.CancelButton = cancelButton;
