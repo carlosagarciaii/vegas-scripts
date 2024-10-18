@@ -303,9 +303,11 @@ public class EntryPoint {
         RenderCreateShortsCheckBox = AddCheckBox( dlog,
                                                 "Render Shorts",
                                                 6,
-                                                600,
+                                                buttonTop,
                                                 true
                                                 );
+
+        buttonTop = RenderCreateShortsCheckBox.Bottom + 16;
 
         RenderProjectButton = AddRadioControl(  dlog,
                                                 "Render Project",
