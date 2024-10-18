@@ -346,7 +346,7 @@ public class EntryPoint {
         dlog.CancelButton = cancelButton;
         dlog.Controls.Add(cancelButton);
 
-        dlog.Height = 800; //titleBarHeight + okButton.Bottom + 8;
+        dlog.Height = titleBarHeight + okButton.Bottom + 8;
         dlog.ShowInTaskbar = false;
 
         FillTemplateTree();
@@ -384,13 +384,13 @@ public class EntryPoint {
         dlog.Controls.Add(label);
 
         CheckBox checkBox = new CheckBox();
-        checkBox.Text = labelName;
+        checkBox.Text = "  "; //labelName;
         checkBox.Checked = isChecked;
         checkBox.Enabled = isEnabled;
         checkBox.AutoSize = true;
         checkBox.FlatStyle = FlatStyle.System;
         checkBox.Left = label.Right + 5;
-        checkBox.Top = label.Top;
+        checkBox.Top = top;
         checkBox.Anchor = AnchorStyles.Left|AnchorStyles.Right;
         dlog.Controls.Add(checkBox);
 
