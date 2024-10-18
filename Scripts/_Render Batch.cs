@@ -393,8 +393,8 @@ public class EntryPoint {
         checkBox.AutoSize = true;
 //        checkBox.Size = new Size(20,20);
         checkBox.FlatStyle = FlatStyle.System;
-        checkBox.Left = label.Right + 20;
-        checkBox.Top = label.Top;
+        checkBox.Left = left; // label.Right + 20;
+        checkBox.Top = top; // label.Top;
         checkBox.Anchor = AnchorStyles.Left;    //|AnchorStyles.Right;
         dlog.Controls.Add(checkBox);
 
