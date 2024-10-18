@@ -380,6 +380,7 @@ public class EntryPoint {
         Label label = new Label();
         label.AutoSize = true;
         label.Text = labelName;
+        label.BackColor = Color.Yellow;
         label.Left = left;
         label.Top = top + 4;
         label.Enabled = isEnabled;
@@ -395,7 +396,7 @@ public class EntryPoint {
         checkBox.FlatStyle = FlatStyle.System;
         checkBox.Left = label.Right + 20;
         checkBox.Top = label.Top;
-        checkBox.Anchor = AnchorStyles.Right;    //|AnchorStyles.Right;
+//        checkBox.Anchor = AnchorStyles.Right;    //|AnchorStyles.Right;
         dlog.Controls.Add(checkBox);
 
         return checkBox;
