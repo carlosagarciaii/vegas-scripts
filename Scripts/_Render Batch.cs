@@ -380,7 +380,7 @@ public class EntryPoint {
         Label label = new Label();
         label.AutoSize = true;
         label.Text = labelName;
-        label.BackColor = Color.Yellow;
+        label.BackColor = Color.Transparent;
         label.Left = left;
         label.Top = top + 4;
         label.Enabled = isEnabled;
