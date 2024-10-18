@@ -42,7 +42,7 @@ public class EntryPoint {
         string foundPath = GetTargetDrive();
         String projectPath = myVegas.Project.FilePath;
         if (!string.IsNullOrEmpty(foundPath) || foundPath != ""){
-            defaultBasePath = foundPath;
+            defaultBasePath = Path.Combine(foundPath,defaultBasePath);
         }
         else if (String.IsNullOrEmpty(projectPath))
         {
@@ -679,7 +679,7 @@ public class EntryPoint {
             }
         }
 
-        return foundPath;  
+        return foundPath + "\\";  
     }
 
     RenderTemplate GetTemplateByName(string templateName){
