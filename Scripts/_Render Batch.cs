@@ -683,14 +683,17 @@ public class EntryPoint {
     }
 
     RenderTemplate GetTemplateByName(string templateName){
-        if (templateName.IsNullOrEmpty || templateName.Trim() == "") {
+        if (templateName.IsNullOrEmpty || templateName.Trim() == "") 
+        {
             throw new Exception("Template Name Cannot be Empty");
         }
         RenderTemplate foundTemplate;
 
-        foreach (Renderer renderer in myVegas.Renderers){   
-            foreach (RenderTemplate renderTemplate in renderer.Templates){
-                if (templateName.Name.ToLower().Contains(templateName.ToLower()))
+        foreach (Renderer renderer in myVegas.Renderers)
+        {   
+            foreach (RenderTemplate renderTemplate in renderer.Templates)
+            {
+                if (renderTemplate.Name.ToLower().Contains(templateName.ToLower()))
                 {
                     return foundTemplate;
                 }
