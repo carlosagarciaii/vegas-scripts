@@ -346,7 +346,7 @@ public class EntryPoint {
         dlog.CancelButton = cancelButton;
         dlog.Controls.Add(cancelButton);
 
-        dlog.Height = titleBarHeight + okButton.Bottom + 8;
+        dlog.Height = 800; //titleBarHeight + okButton.Bottom + 8;
         dlog.ShowInTaskbar = false;
 
         FillTemplateTree();
