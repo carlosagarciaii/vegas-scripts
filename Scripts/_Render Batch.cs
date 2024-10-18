@@ -382,7 +382,7 @@ public class EntryPoint {
         dlog.Controls.Add(label);
 
         CheckBox checkBox = new CheckBox();
-        //  checkBox.Text = labelName;
+        checkBox.Text = ""; //labelName;
         checkBox.Checked = isChecked;
         checkBox.Enabled = isEnabled;
         checkBox.AutoSize = true;
