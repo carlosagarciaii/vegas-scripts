@@ -20,7 +20,7 @@ public class EntryPoint {
     // set this to true if you want to allow files to be overwritten
     bool OverwriteExistingFiles = false;
 
-    String defaultBasePath = @"E:\_Render\RenderFile";
+    String defaultBasePath = @"G:\_Render\RenderFile";
     const int QUICKTIME_MAX_FILE_NAME_LENGTH = 55;
 
     ScriptPortal.Vegas.Vegas myVegas = null;
@@ -634,4 +634,22 @@ public class EntryPoint {
         return false;
     }
     
+
+    string GetTargetDrive() {
+        string foundPath = @"E:\_Render";  
+        DriveInfo[] drives = DriveInfo.GetDrives();
+
+        foreach (DriveInfo drive in drives) {
+            string checkDir = Path.Combine(drive.Name, "_Render");  
+            Console.WriteLine(checkDir);
+
+            if (Directory.Exists(checkDir)) {
+                foundPath = checkDir;
+                break;
+            }
+        }
+
+        return foundPath;  
+    }
+
 }
