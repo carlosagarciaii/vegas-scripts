@@ -42,7 +42,9 @@ public class EntryPoint {
         string foundPath = GetTargetDrive();
         String projectPath = myVegas.Project.FilePath;
         if (!string.IsNullOrEmpty(foundPath) || foundPath != ""){
-            defaultBasePath = Path.Combine(foundPath,defaultBasePath);
+            string projFileName = vegas.Project.FilePath;
+            string projName = System.IO.Path.GetFileNameWithoutExtension(projFileName);
+            defaultBasePath = Path.Combine(foundPath,projName);
         }
         else if (String.IsNullOrEmpty(projectPath))
         {
