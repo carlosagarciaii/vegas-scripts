@@ -21,6 +21,7 @@ public class EntryPoint {
     bool OverwriteExistingFiles = false;
 
     String defaultBasePath = @"E:\_Render\RenderFile";
+    const string shortRenderTemplateName = "YT Shorts (608x1080 60fps)";
     const int QUICKTIME_MAX_FILE_NAME_LENGTH = 55;
 
     ScriptPortal.Vegas.Vegas myVegas = null;
@@ -126,6 +127,8 @@ public class EntryPoint {
                                            FixFileName(tempstr2));
                 }
             }
+
+            // RENDER REGIONS
             if (RenderMode.Regions == renderMode) {
                 int regionIndex = 0;
                 foreach (ScriptPortal.Vegas.Region region in myVegas.Project.Regions) {
@@ -149,7 +152,17 @@ public class EntryPoint {
 
                     RenderArgs args = new RenderArgs();
                     args.OutputFile = regionFilename;
-                    args.RenderTemplate = renderItem.Template;
+
+                    // RENDER SHORTS
+                    if (region.Label.ToLower().contains("#short")){
+                        // TODO: Update Render Template
+                        args.RenderTemplate = GetTemplateByName(shortRenderTemplateName);
+
+                    }
+                    else {
+                        args.RenderTemplate = renderItem.Template;
+                    }
+
                     args.Start = region.Position;
                     args.Length = region.Length;
                     renders.Add(args);
@@ -668,5 +681,25 @@ public class EntryPoint {
 
         return foundPath;  
     }
+
+    RenderTemplate GetTemplateByName(string templateName){
+        if (templateName.IsNullOrEmpty || templateName.Trim() == ""){
+            throw new exception("Template Name Cannot be Empty");
+        }
+        RenderTemplate foundTemplate = new RenderTemplate();
+
+        foreach (Renderer renderer in myVegas.Renderers){   
+            foreach (RenderTemplate renderTemplate in renderer.Templates){
+                if (templateName.Name.Equals(templateName,StringComparison.OrdinalIgnoreCase))
+                {
+                    return foundTemplate;
+                }
+            }
+        }
+        string errorMsg = "Failed to find Render Template: " + templateName;
+        throw new exception(errorMsg);
+
+    }
+
 
 }
