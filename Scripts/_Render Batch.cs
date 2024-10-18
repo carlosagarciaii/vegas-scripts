@@ -300,14 +300,12 @@ public class EntryPoint {
         int buttonTop = TemplateTree.Bottom + 16;
         int buttonsLeft = dlog.Width - (2*(buttonWidth+10));
 
-//        dlog.SuspendLayout();
         RenderCreateShortsCheckBox = AddCheckBox( dlog,
                                                 "Render Shorts",
                                                 6,
                                                 buttonTop,
                                                 true
                                                 );
-//        dlog.ResumeLayout();
 
         buttonTop = RenderCreateShortsCheckBox.Bottom + 16;
 
@@ -387,7 +385,7 @@ public class EntryPoint {
         dlog.Controls.Add(label);
         
         CheckBox checkBox = new CheckBox();
-        checkBox.Text = "   "; //string.Empty; //labelName;
+        checkBox.Text = "   "; 
         checkBox.Checked = isChecked;
         checkBox.Enabled = isEnabled;
         checkBox.IsAccessible = isEnabled;
