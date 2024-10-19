@@ -12,6 +12,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 using ScriptPortal.Vegas;
 
