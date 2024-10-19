@@ -156,7 +156,7 @@ public class EntryPoint {
                     args.OutputFile = regionFilename;
 
                     // RENDER SHORTS
-                    if (region.Label.ToLower().Contains("#short")){
+                    if (region.Label.ToLower().Contains("#short") && IsShortCheck(region)){
                         // TODO: Update Render Template
                         args.RenderTemplate = GetTemplateByName(shortRenderTemplateName);
 
@@ -702,6 +702,14 @@ public class EntryPoint {
         }
         string errorMsg = "Failed to find Render Template: " + templateName;
         throw new Exception(errorMsg);
+
+    }
+
+    bool IsShortCheck(Region! region){
+        double clipLength = region.Length.ToMilliseconds() / 1000;
+        if (clipLength < 60){ return true;}
+            
+        return false;
 
     }
 
