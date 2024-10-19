@@ -163,7 +163,7 @@ public class EntryPoint {
                     }
                     else {
                         args.RenderTemplate = renderItem.Template;
-                        args.OutputFile = regionIndex.Replace(args.OutputFile,"#short","(Adjusted Output)",RegexOptions.IgnoreCase);
+                        args.OutputFile = Regex.Replace(args.OutputFile,"#short","(Adjusted Output)",RegexOptions.IgnoreCase);
                     }
 
                     args.Start = region.Position;
