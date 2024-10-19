@@ -705,7 +705,7 @@ public class EntryPoint {
 
     }
 
-    bool IsShortCheck(Region! region){
+    bool IsShortCheck(Region region){
         double clipLength = region.Length.ToMilliseconds() / 1000;
         if (clipLength < 60){ return true;}
             
