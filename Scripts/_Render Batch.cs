@@ -163,6 +163,7 @@ public class EntryPoint {
                     }
                     else {
                         args.RenderTemplate = renderItem.Template;
+                        args.OutputFile = regionIndex.Replace(args.OutputFile,"#short","(Adjusted Output)",RegexOptions.IgnoreCase);
                     }
 
                     args.Start = region.Position;
@@ -291,6 +292,7 @@ public class EntryPoint {
 
         int titleBarHeight = dlog.Height - dlog.ClientSize.Height;
         int buttonWidth = 80;
+        int buttonTop = 0;
 
         FileNameBox = AddTextControl(dlog, "Base File Name", titleBarHeight + 6, 460, 10, defaultBasePath);
 
@@ -312,7 +314,7 @@ public class EntryPoint {
         TemplateTree.AfterCheck += new TreeViewEventHandler(this.HandleTreeViewCheck);
         dlog.Controls.Add(TemplateTree);
 
-        int buttonTop = TemplateTree.Bottom + 16;
+        buttonTop = TemplateTree.Bottom + 16;
         int buttonsLeft = dlog.Width - (2*(buttonWidth+10));
 
         RenderCreateShortsCheckBox = AddCheckBox( dlog,
