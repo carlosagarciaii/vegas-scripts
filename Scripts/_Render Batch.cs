@@ -330,7 +330,7 @@ public class EntryPoint {
         ShortsMaxLength = AddTextControl(dlog,
                                         "Shorts Max Length",
                                         RenderCreateShortsCheckBox.Right + 10,
-                                        100,
+                                        150,
                                         RenderCreateShortsCheckBox.Top,
                                         "60");
 
