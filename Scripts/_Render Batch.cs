@@ -333,7 +333,7 @@ public class EntryPoint {
                                         "Shorts Max Length",
                                         RenderCreateShortsCheckBox.Right + 10,
                                         150,
-                                        RenderCreateShortsCheckBox.Top - 5,
+                                        RenderCreateShortsCheckBox.Top - 2,
                                         "60");
 
         buttonTop = RenderCreateShortsCheckBox.Bottom + 16;
