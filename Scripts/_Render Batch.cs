@@ -24,6 +24,7 @@ public class EntryPoint {
     String defaultBasePath = @"E:\_Render\RenderFile";
     const string shortRenderTemplateName = "YT Shorts (608x1080 60fps)";
     const int QUICKTIME_MAX_FILE_NAME_LENGTH = 55;
+    const int maxShortLength = 180;
 
     ScriptPortal.Vegas.Vegas myVegas = null;
 
@@ -710,7 +711,7 @@ public class EntryPoint {
 
     bool IsShortCheck(ScriptPortal.Vegas.Region region){
         double clipLength = region.Length.ToMilliseconds() / 1000;
-        if (clipLength < 60){ return true;}
+        if (clipLength < maxShortLength){ return true;}
             
         return false;
 
