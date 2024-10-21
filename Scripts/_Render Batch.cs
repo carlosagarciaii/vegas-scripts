@@ -332,7 +332,7 @@ public class EntryPoint {
                                         RenderCreateShortsCheckBox.Right + 10,
                                         20,
                                         RenderCreateShortsCheckBox.Top,
-                                        60);
+                                        "60");
 
         buttonTop = RenderCreateShortsCheckBox.Bottom + 16;
 
