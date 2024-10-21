@@ -24,7 +24,7 @@ public class EntryPoint {
     String defaultBasePath = @"E:\_Render\RenderFile";
     const string shortRenderTemplateName = "YT Shorts (608x1080 60fps)";
     const int QUICKTIME_MAX_FILE_NAME_LENGTH = 55;
-    const int maxShortLength = 180;
+    const int maxShortLength = 60;
 
     ScriptPortal.Vegas.Vegas myVegas = null;
 
@@ -279,6 +279,7 @@ public class EntryPoint {
     RadioButton RenderSelectionButton;
     CheckBox RenderCreateShortsCheckBox;
     CheckBox IncludeTemplateNameBox;
+    TextBox ShortsMaxLength;
 
     DialogResult ShowBatchRenderDialog()
     {
@@ -325,6 +326,13 @@ public class EntryPoint {
                                                 buttonTop,
                                                 true
                                                 );
+
+        ShortsMaxLength = AddTextControl(dlog,
+                                        "Shorts Max Length",
+                                        RenderCreateShortsCheckBox.Right + 10,
+                                        20,
+                                        RenderCreateShortsCheckBox.Top,
+                                        60);
 
         buttonTop = RenderCreateShortsCheckBox.Bottom + 16;
 
@@ -712,6 +720,13 @@ public class EntryPoint {
     bool IsShortCheck(ScriptPortal.Vegas.Region region){
         double clipLength = region.Length.ToMilliseconds() / 1000;
         if (clipLength < maxShortLength){ return true;}
+            
+        return false;
+
+    }
+    bool IsShortCheck(ScriptPortal.Vegas.Region region, int lengthInSeconds = 60){
+        double clipLength = region.Length.ToMilliseconds() / 1000;
+        if (clipLength < lengthInSeconds){ return true;}
             
         return false;
 
