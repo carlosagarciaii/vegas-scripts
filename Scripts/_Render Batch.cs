@@ -12,6 +12,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 using ScriptPortal.Vegas;
 
@@ -21,7 +22,9 @@ public class EntryPoint {
     bool OverwriteExistingFiles = false;
 
     String defaultBasePath = @"E:\_Render\RenderFile";
+    const string shortRenderTemplateName = "YT Shorts (608x1080 60fps)";
     const int QUICKTIME_MAX_FILE_NAME_LENGTH = 55;
+    const int maxShortLength = 180;
 
     ScriptPortal.Vegas.Vegas myVegas = null;
 
@@ -38,9 +41,14 @@ public class EntryPoint {
     public void FromVegas(Vegas vegas)
     {
         myVegas = vegas;
-
+        string foundPath = GetTargetDrive();
         String projectPath = myVegas.Project.FilePath;
-        if (String.IsNullOrEmpty(projectPath))
+        if (!string.IsNullOrEmpty(foundPath) || foundPath != ""){
+            string projFileName = vegas.Project.FilePath;
+            string projName = System.IO.Path.GetFileNameWithoutExtension(projFileName);
+            defaultBasePath = Path.Combine(foundPath,projName);
+        }
+        else if (String.IsNullOrEmpty(projectPath))
         {
             String dir = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
             defaultBasePath = Path.Combine(dir, defaultBasePath);
@@ -123,6 +131,8 @@ public class EntryPoint {
                                            FixFileName(tempstr2));
                 }
             }
+
+            // RENDER REGIONS
             if (RenderMode.Regions == renderMode) {
                 int regionIndex = 0;
                 foreach (ScriptPortal.Vegas.Region region in myVegas.Project.Regions) {
@@ -146,7 +156,18 @@ public class EntryPoint {
 
                     RenderArgs args = new RenderArgs();
                     args.OutputFile = regionFilename;
-                    args.RenderTemplate = renderItem.Template;
+
+                    // RENDER SHORTS
+                    if (region.Label.ToLower().Contains("#short") && IsShortCheck(region)){
+                        // TODO: Update Render Template
+                        args.RenderTemplate = GetTemplateByName(shortRenderTemplateName);
+
+                    }
+                    else {
+                        args.RenderTemplate = renderItem.Template;
+                        args.OutputFile = Regex.Replace(args.OutputFile,"#short","(Adjusted Output)",RegexOptions.IgnoreCase);
+                    }
+
                     args.Start = region.Position;
                     args.Length = region.Length;
                     renders.Add(args);
@@ -256,7 +277,7 @@ public class EntryPoint {
     RadioButton RenderProjectButton;
     RadioButton RenderRegionsButton;
     RadioButton RenderSelectionButton;
-
+    CheckBox RenderCreateShortsCheckBox;
     CheckBox IncludeTemplateNameBox;
 
     DialogResult ShowBatchRenderDialog()
@@ -267,10 +288,13 @@ public class EntryPoint {
         dlog.MaximizeBox = false;
         dlog.StartPosition = FormStartPosition.CenterScreen;
         dlog.Width = 610;
+        dlog.Height = 900;
+        
         dlog.FormClosing += this.HandleFormClosing;
 
         int titleBarHeight = dlog.Height - dlog.ClientSize.Height;
         int buttonWidth = 80;
+        int buttonTop = 0;
 
         FileNameBox = AddTextControl(dlog, "Base File Name", titleBarHeight + 6, 460, 10, defaultBasePath);
 
@@ -292,8 +316,17 @@ public class EntryPoint {
         TemplateTree.AfterCheck += new TreeViewEventHandler(this.HandleTreeViewCheck);
         dlog.Controls.Add(TemplateTree);
 
-        int buttonTop = TemplateTree.Bottom + 16;
+        buttonTop = TemplateTree.Bottom + 16;
         int buttonsLeft = dlog.Width - (2*(buttonWidth+10));
+
+        RenderCreateShortsCheckBox = AddCheckBox( dlog,
+                                                "Render Shorts",
+                                                6,
+                                                buttonTop,
+                                                true
+                                                );
+
+        buttonTop = RenderCreateShortsCheckBox.Bottom + 16;
 
         RenderProjectButton = AddRadioControl(  dlog,
                                                 "Render Project",
@@ -333,7 +366,7 @@ public class EntryPoint {
         dlog.Controls.Add(cancelButton);
 
         dlog.Height = titleBarHeight + okButton.Bottom + 8;
-        dlog.ShowInTaskbar = false;
+        dlog.ShowInTaskbar = true;
 
         FillTemplateTree();
 
@@ -364,19 +397,22 @@ public class EntryPoint {
         Label label = new Label();
         label.AutoSize = true;
         label.Text = labelName;
+        label.BackColor = Color.Transparent;
         label.Left = left;
         label.Top = top + 4;
         label.Enabled = isEnabled;
         dlog.Controls.Add(label);
-
+        
         CheckBox checkBox = new CheckBox();
-        checkBox.Text = labelName;
+        checkBox.Text = "   "; 
         checkBox.Checked = isChecked;
         checkBox.Enabled = isEnabled;
+        checkBox.IsAccessible = isEnabled;
         checkBox.AutoSize = true;
         checkBox.FlatStyle = FlatStyle.System;
-        checkBox.Left = label.Right;
-        checkBox.Anchor = AnchorStyles.Left|AnchorStyles.Right;
+        checkBox.Left = label.Right + 20;
+        checkBox.Top = label.Top;
+        dlog.Controls.Add(checkBox);
 
         return checkBox;
     }
@@ -634,4 +670,52 @@ public class EntryPoint {
         return false;
     }
     
+
+    string GetTargetDrive() {
+        string foundPath = "";  
+        DriveInfo[] drives = DriveInfo.GetDrives();
+
+        foreach (DriveInfo drive in drives) {
+            string checkDir = Path.Combine(drive.Name, "_Render");  
+            Console.WriteLine(checkDir);
+
+            if (Directory.Exists(checkDir)) {
+                foundPath = checkDir;
+                break;
+            }
+        }
+
+        return foundPath + "\\";  
+    }
+
+    RenderTemplate GetTemplateByName(string templateName){
+        if (string.IsNullOrEmpty(templateName) || templateName.Trim() == "") 
+        {
+            throw new Exception("Template Name Cannot be Empty");
+        }
+
+        foreach (Renderer renderer in myVegas.Renderers)
+        {   
+            foreach (RenderTemplate renderTemplate in renderer.Templates)
+            {
+                if (renderTemplate.Name.ToLower().Contains(templateName.ToLower()))
+                {
+                    return renderTemplate;
+                }
+            }
+        }
+        string errorMsg = "Failed to find Render Template: " + templateName;
+        throw new Exception(errorMsg);
+
+    }
+
+    bool IsShortCheck(ScriptPortal.Vegas.Region region){
+        double clipLength = region.Length.ToMilliseconds() / 1000;
+        if (clipLength < maxShortLength){ return true;}
+            
+        return false;
+
+    }
+
+
 }
