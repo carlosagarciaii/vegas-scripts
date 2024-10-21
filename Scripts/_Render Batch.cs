@@ -24,7 +24,7 @@ public class EntryPoint {
     String defaultBasePath = @"E:\_Render\RenderFile";
     const string shortRenderTemplateName = "YT Shorts (608x1080 60fps)";
     const int QUICKTIME_MAX_FILE_NAME_LENGTH = 55;
-    const int maxShortLength = 60;
+    int maxShortLength = 60;
 
     ScriptPortal.Vegas.Vegas myVegas = null;
 
@@ -624,6 +624,9 @@ public class EntryPoint {
         if (null == dlg) return;
         if (DialogResult.OK != dlg.DialogResult) return;
         String outputFilePath = FileNameBox.Text;
+
+        bool parsedShortLength = Int32.TryParse( ShortsMaxLength.Text.Trim(), out maxShortLength);
+
         try {
             String outputDirectory = Path.GetDirectoryName(outputFilePath);
             if (!Directory.Exists(outputDirectory)) throw new ApplicationException();
