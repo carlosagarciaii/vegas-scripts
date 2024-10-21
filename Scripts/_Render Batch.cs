@@ -626,6 +626,15 @@ public class EntryPoint {
         String outputFilePath = FileNameBox.Text;
 
         bool parsedShortLength = Int32.TryParse( ShortsMaxLength.Text.Trim(), out maxShortLength);
+        if (!parsedShortLength){
+            String title = "Short Length must be an Integer";
+            StringBuilder msg = new StringBuilder();
+            msg.Append("The shorts length was not an integer.\n");
+            msg.Append("Please remove all non-numeric characters.");
+            MessageBox.Show(dlg, msg.ToString(), title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            args.Cancel = true;
+            return;
+        }
 
         try {
             String outputDirectory = Path.GetDirectoryName(outputFilePath);
