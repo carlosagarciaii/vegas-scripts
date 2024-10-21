@@ -42,6 +42,8 @@ public class EntryPoint {
     {
         myVegas = vegas;
         string foundPath = GetTargetDrive();
+
+        // TODO: This needs to be updated so that we throw an error when there is no saved file
         String projectPath = myVegas.Project.FilePath;
         if (!string.IsNullOrEmpty(foundPath) || foundPath != ""){
             string projFileName = vegas.Project.FilePath;
@@ -331,7 +333,7 @@ public class EntryPoint {
                                         "Shorts Max Length",
                                         RenderCreateShortsCheckBox.Right + 10,
                                         150,
-                                        RenderCreateShortsCheckBox.Top,
+                                        RenderCreateShortsCheckBox.Top + 5,
                                         "60");
 
         buttonTop = RenderCreateShortsCheckBox.Bottom + 16;
