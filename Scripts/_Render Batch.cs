@@ -24,7 +24,7 @@ public class EntryPoint {
     String defaultBasePath = @"E:\_Render\RenderFile";
     const string shortRenderTemplateName = "YT Shorts (608x1080 60fps)";
     const int QUICKTIME_MAX_FILE_NAME_LENGTH = 55;
-    const int maxShortLength = 180;
+    int maxShortLength = 60;
 
     ScriptPortal.Vegas.Vegas myVegas = null;
 
@@ -42,6 +42,8 @@ public class EntryPoint {
     {
         myVegas = vegas;
         string foundPath = GetTargetDrive();
+
+        // TODO: This needs to be updated so that we throw an error when there is no saved file
         String projectPath = myVegas.Project.FilePath;
         if (!string.IsNullOrEmpty(foundPath) || foundPath != ""){
             string projFileName = vegas.Project.FilePath;
@@ -279,6 +281,7 @@ public class EntryPoint {
     RadioButton RenderSelectionButton;
     CheckBox RenderCreateShortsCheckBox;
     CheckBox IncludeTemplateNameBox;
+    TextBox ShortsMaxLength;
 
     DialogResult ShowBatchRenderDialog()
     {
@@ -325,6 +328,13 @@ public class EntryPoint {
                                                 buttonTop,
                                                 true
                                                 );
+
+        ShortsMaxLength = AddTextControl(dlog,
+                                        "Shorts Max Length",
+                                        RenderCreateShortsCheckBox.Right + 10,
+                                        150,
+                                        RenderCreateShortsCheckBox.Top - 3,
+                                        "60");
 
         buttonTop = RenderCreateShortsCheckBox.Bottom + 16;
 
@@ -616,6 +626,18 @@ public class EntryPoint {
         if (null == dlg) return;
         if (DialogResult.OK != dlg.DialogResult) return;
         String outputFilePath = FileNameBox.Text;
+
+        bool parsedShortLength = Int32.TryParse( ShortsMaxLength.Text.Trim(), out maxShortLength);
+        if (!parsedShortLength){
+            String title = "Short Length must be an Integer";
+            StringBuilder msg = new StringBuilder();
+            msg.Append("The shorts length was not an integer.\n");
+            msg.Append("Please remove all non-numeric characters.");
+            MessageBox.Show(dlg, msg.ToString(), title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            args.Cancel = true;
+            return;
+        }
+
         try {
             String outputDirectory = Path.GetDirectoryName(outputFilePath);
             if (!Directory.Exists(outputDirectory)) throw new ApplicationException();
@@ -712,6 +734,13 @@ public class EntryPoint {
     bool IsShortCheck(ScriptPortal.Vegas.Region region){
         double clipLength = region.Length.ToMilliseconds() / 1000;
         if (clipLength < maxShortLength){ return true;}
+            
+        return false;
+
+    }
+    bool IsShortCheck(ScriptPortal.Vegas.Region region, int lengthInSeconds = 60){
+        double clipLength = region.Length.ToMilliseconds() / 1000;
+        if (clipLength < lengthInSeconds){ return true;}
             
         return false;
 
