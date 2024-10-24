@@ -137,6 +137,8 @@ public class EntryPoint {
             // RENDER REGIONS
             if (RenderMode.Regions == renderMode) {
                 int regionIndex = 0;
+                //TODO: Render Regions SErialization
+                int leadingZeros = myVegas.Project.Regions.Count.ToString().Length;
                 foreach (ScriptPortal.Vegas.Region region in myVegas.Project.Regions) {
                     string propList = "";
 					foreach(var prop in region.GetType().GetProperties()) {
@@ -144,12 +146,15 @@ public class EntryPoint {
                         
                     }
 
+                    string prefixName = (SerializeOutputCheckBox.Checked)? FilePrefixNumber(regionIndex, leadingZeros) + " - ": "";
+
                     String templateNameAppended = "";
                     if(selectedTemplates.Count > 1){
                       templateNameAppended = " - " + FixFileName(renderItem.Template.Name) ; 
   
                     } 
                     String regionFilename = Path.Combine(outputDirectory,
+                                                            prefixName + 
                                                             FixFileName(region.Label) + 
                                                             templateNameAppended + 
                                                             " (" + FixFileName(baseFileName) + ")" +
@@ -754,5 +759,10 @@ public class EntryPoint {
 
     }
 
+    string FilePrefixNumber(int fileNumber,int stringLength){
+        if (stringLength < 2){ return fileNumber.ToString();}
+        string prefixName = new string('0',stringLength);
+        return prefixName + fileNumber.ToString();
+    }
 
 }
