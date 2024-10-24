@@ -282,6 +282,7 @@ public class EntryPoint {
     CheckBox RenderCreateShortsCheckBox;
     CheckBox IncludeTemplateNameBox;
     TextBox ShortsMaxLength;
+    CheckBox SerializeOutputCheckBox;
 
     DialogResult ShowBatchRenderDialog()
     {
@@ -335,6 +336,13 @@ public class EntryPoint {
                                         150,
                                         RenderCreateShortsCheckBox.Top - 3,
                                         "60");
+
+        SerializeOutputCheckBox = AddCheckBox(dlog,
+                                                "Serialize Out Files",
+                                                ShortsMaxLength.Right + 10,
+                                                RenderCreateShortsCheckBox.Top - 3,
+                                                true
+                                                );
 
         buttonTop = RenderCreateShortsCheckBox.Bottom + 16;
 
