@@ -758,11 +758,12 @@ public class EntryPoint {
         return false;
 
     }
-
+//TODO: Fix the numeric padding. Currently 00#. Should be 0# for 1-9
     string FilePrefixNumber(int fileNumber,int stringLength){
         if (stringLength < 2){ return fileNumber.ToString();}
         string prefixName = new string('0',stringLength);
-        return prefixName + fileNumber.ToString();
+        string outString = prefixName + fileNumber.ToString();
+        return outString.Substring(outString.Length - stringLength);
     }
 
 }
