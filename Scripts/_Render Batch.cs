@@ -137,7 +137,7 @@ public class EntryPoint {
             // RENDER REGIONS
             if (RenderMode.Regions == renderMode) {
                 int regionIndex = 0;
-                //TODO: Render Regions SErialization
+                
                 int leadingZeros = myVegas.Project.Regions.Count.ToString().Length;
                 foreach (ScriptPortal.Vegas.Region region in myVegas.Project.Regions) {
                     string propList = "";
@@ -164,8 +164,10 @@ public class EntryPoint {
                     RenderArgs args = new RenderArgs();
                     args.OutputFile = regionFilename;
 
+                    
+
                     // RENDER SHORTS
-                    if (region.Label.ToLower().Contains("#short") && IsShortCheck(region)){
+                    if (RenderCreateShortsCheckBox.Checked && region.Label.ToLower().Contains("#short") && IsShortCheck(region)){
                         // TODO: Update Render Template
                         args.RenderTemplate = GetTemplateByName(shortRenderTemplateName);
 
@@ -640,6 +642,15 @@ public class EntryPoint {
         if (DialogResult.OK != dlg.DialogResult) return;
         String outputFilePath = FileNameBox.Text;
 
+    /*
+        // TODO: Validation of CheckBox
+        StringBuilder tmpMsg = new StringBuilder();
+        tmpMsg.Append(RenderCreateShortsCheckBox.Checked? "Box is Checked":"Box is NOT Checked");
+        MessageBox.Show(dlg,tmpMsg.ToString(),"Test Message",MessageBoxButtons.OK, MessageBoxIcon.Information);
+        args.Cancel = true;
+        return;
+    */
+
         bool parsedShortLength = Int32.TryParse( ShortsMaxLength.Text.Trim(), out maxShortLength);
         if (!parsedShortLength){
             String title = "Short Length must be an Integer";
@@ -723,6 +734,12 @@ public class EntryPoint {
         return foundPath + "\\";  
     }
 
+    /// <summary>
+    /// Search for a Template using the exact name
+    /// </summary>
+    /// <param name="templateName">The template name as a string</param>
+    /// <returns></returns>
+    /// <exception cref="Exception">IF template is not found, throws error</exception>
     RenderTemplate GetTemplateByName(string templateName){
         if (string.IsNullOrEmpty(templateName) || templateName.Trim() == "") 
         {
@@ -744,6 +761,13 @@ public class EntryPoint {
 
     }
 
+
+    /// <summary>
+    /// Checks if the region meets the criteria for a Short
+    /// </summary>
+    /// <param name="region">The Region</param>
+    /// <returns>true - if criteria met</returns>
+
     bool IsShortCheck(ScriptPortal.Vegas.Region region){
         double clipLength = region.Length.ToMilliseconds() / 1000;
         if (clipLength < maxShortLength){ return true;}
@@ -751,6 +775,13 @@ public class EntryPoint {
         return false;
 
     }
+
+    /// <summary>
+    /// Checks if the region meets the criteria for a Short
+    /// </summary>
+    /// <param name="region">The Region</param>
+    /// <param name="lengthInSeconds">The max allowed length in seconds</param>
+    /// <returns>true - if criteria is met</returns>
     bool IsShortCheck(ScriptPortal.Vegas.Region region, int lengthInSeconds = 60){
         double clipLength = region.Length.ToMilliseconds() / 1000;
         if (clipLength < lengthInSeconds){ return true;}
@@ -758,7 +789,13 @@ public class EntryPoint {
         return false;
 
     }
-//TODO: Fix the numeric padding. Currently 00#. Should be 0# for 1-9
+    
+    /// <summary>
+    /// Creates a prefix to the file
+    /// </summary>
+    /// <param name="fileNumber">The file number</param>
+    /// <param name="stringLength">Determines the length of the string</param>
+    /// <returns>The prefix that should be used for a serialized file</returns>
     string FilePrefixNumber(int fileNumber,int stringLength){
         if (stringLength < 2){ return fileNumber.ToString();}
         string prefixName = new string('0',stringLength);
