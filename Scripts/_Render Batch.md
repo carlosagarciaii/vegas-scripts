@@ -10,10 +10,14 @@
 |Feature|Description|
 |---|---|
 |Base File Name|Deteremines the path to the file|
-|Available Templates|Check one or more templates to render as. All checked templates will be rendered for all regions|
+|All Templates|Check one or more templates to render as. All checked templates will be rendered for all regions|
+|Shorts Templates|Check only 1 for the template that will be used for shorts. If multiple are selected, then only the first one detected will be used.|
 |Render Shorts|Determines whether Regions with #short in the name will be rendered with the Shorts format|
 |Shorts Max Length|Determines that maximum length to be considered a short|
 |Serialized Out Files|Will serialize files by adding a number to the start of the filename. |
+|Render Project| Renders the whole project|
+|Render Selection| Renders only the selection|
+|Render Regions| (Default) Renders regions|
 
 ## Feature Requests
 
@@ -22,6 +26,15 @@
 
 
 ## Version History
+
+
+### Version 0.6
+
+*   New Features
+    *   Ability to select the Shorts template
+*   Fixes
+    *   Duplicate files when Shorts are rendered
+*   Bugs Found
 
 
 ### Version 0.5 

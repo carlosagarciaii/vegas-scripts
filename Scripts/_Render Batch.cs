@@ -14,6 +14,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 
+
 using ScriptPortal.Vegas;
 
 public class EntryPoint {
@@ -36,7 +37,7 @@ public class EntryPoint {
     }
 
     ArrayList SelectedTemplates = new ArrayList();
-
+    ArrayList SelectedShortsTemplates = new ArrayList();
 
     public void FromVegas(Vegas vegas)
     {
@@ -136,52 +137,10 @@ public class EntryPoint {
 
             // RENDER REGIONS
             if (RenderMode.Regions == renderMode) {
-                int regionIndex = 0;
-                
-                int leadingZeros = myVegas.Project.Regions.Count.ToString().Length;
-                foreach (ScriptPortal.Vegas.Region region in myVegas.Project.Regions) {
-                    string propList = "";
-					foreach(var prop in region.GetType().GetProperties()) {
-                        propList+= prop.Name + ", ";
-                        
-                    }
 
-                    string prefixName = (SerializeOutputCheckBox.Checked)? FilePrefixNumber(regionIndex, leadingZeros) + " - ": "";
+                renders.AddRange(RenderRegions(renderItem,selectedTemplates, basePath));
 
-                    String templateNameAppended = "";
-                    if(selectedTemplates.Count > 1){
-                      templateNameAppended = " - " + FixFileName(renderItem.Template.Name) ; 
-  
-                    } 
-                    String regionFilename = Path.Combine(outputDirectory,
-                                                            prefixName + 
-                                                            FixFileName(region.Label) + 
-                                                            templateNameAppended + 
-                                                            " (" + FixFileName(baseFileName) + ")" +
-											                renderItem.Extension
-                    );
-
-                    RenderArgs args = new RenderArgs();
-                    args.OutputFile = regionFilename;
-
-                    
-
-                    // RENDER SHORTS
-                    if (RenderCreateShortsCheckBox.Checked && region.Label.ToLower().Contains("#short") && IsShortCheck(region)){
-                        // TODO: Update Render Template
-                        args.RenderTemplate = GetTemplateByName(shortRenderTemplateName);
-
-                    }
-                    else {
-                        args.RenderTemplate = renderItem.Template;
-                        args.OutputFile = Regex.Replace(args.OutputFile,"#short","(Adjusted Output)",RegexOptions.IgnoreCase);
-                    }
-
-                    args.Start = region.Position;
-                    args.Length = region.Length;
-                    renders.Add(args);
-                    regionIndex++;
-                }
+            
             } else {
                 filename += renderItem.Extension;
                 RenderArgs args = new RenderArgs();
@@ -192,7 +151,7 @@ public class EntryPoint {
             }
         }
 
-        // validate all files and propmt for overwrites
+        // validate all files and prompt for overwrites
         foreach (RenderArgs args in renders) {
             ValidateFilePath(args.OutputFile);
             if (!OverwriteExistingFiles)
@@ -280,9 +239,12 @@ public class EntryPoint {
     }
 
     
+    Label TemplatesLabel;
+    Label ShortsLabel;
     Button BrowseButton;
     TextBox FileNameBox;
     TreeView TemplateTree;
+    TreeView ShortsTree;
     RadioButton RenderProjectButton;
     RadioButton RenderRegionsButton;
     RadioButton RenderSelectionButton;
@@ -318,14 +280,32 @@ public class EntryPoint {
         BrowseButton.Click += new EventHandler(this.HandleBrowseClick);
         dlog.Controls.Add(BrowseButton);
 
+        TemplatesLabel = AddLabelOnly(dlog,"All Templates",60,BrowseButton.Bottom + 10);
+        ShortsLabel = AddLabelOnly(dlog,"Shorts Templates",60,BrowseButton.Bottom + 10);
+
+        //  All Templates Tree
+        int treeWidthDefault = (int)((dlog.Width - 45) / 2);
         TemplateTree = new TreeView();
         TemplateTree.Left = 10;
-        TemplateTree.Width = dlog.Width - 35;
-        TemplateTree.Top = BrowseButton.Bottom + 10;
+        TemplateTree.Width = treeWidthDefault; //(int)(dlog.Width * .46);
+        TemplateTree.Top = ShortsLabel.Bottom + 10;
         TemplateTree.Height = 300;
         TemplateTree.CheckBoxes = true;
         TemplateTree.AfterCheck += new TreeViewEventHandler(this.HandleTreeViewCheck);
         dlog.Controls.Add(TemplateTree);
+        TemplatesLabel.Left = TemplateTree.Left;
+
+        // All Shorts Tree
+        ShortsTree = new TreeView();
+        ShortsTree.Left = TemplateTree.Right + 10;
+        ShortsTree.Width = treeWidthDefault;
+        ShortsTree.Top = ShortsLabel.Bottom + 10;
+        ShortsTree.Height = 300;
+        ShortsTree.CheckBoxes = true;
+        ShortsTree.AfterCheck += new TreeViewEventHandler(this.HandleTreeViewCheck);
+        dlog.Controls.Add(ShortsTree);
+        ShortsLabel.Left = ShortsTree.Left;
+
 
         buttonTop = TemplateTree.Bottom + 16;
         int buttonsLeft = dlog.Width - (2*(buttonWidth+10));
@@ -394,8 +374,21 @@ public class EntryPoint {
         dlog.ShowInTaskbar = true;
 
         FillTemplateTree();
+        
+        FillTemplateTree(true);
 
         return dlog.ShowDialog(myVegas.MainWindow);
+    }
+
+    Label AddLabelOnly(Form dlog, String labelName, int left, int top){
+        
+        Label label = new Label();
+        label.AutoSize = true;
+        label.Text = labelName + ":";
+        label.Left = left;
+        label.Top = top + 4;
+        dlog.Controls.Add(label);
+        return label;
     }
 
     TextBox AddTextControl(Form dlog, String labelName, int left, int width, int top, String defaultValue)
@@ -480,7 +473,7 @@ public class EntryPoint {
         return false;
     }
 
-    void FillTemplateTree()
+    void FillTemplateTree(bool onlyShorts = false)
     {
         int projectAudioChannelCount = 0;
         if (AudioBusMode.Stereo == myVegas.Project.Audio.MasterBusMode) {
@@ -534,9 +527,13 @@ public class EntryPoint {
                         if (1 != extensions.Length) {
                             continue;
                         }
+                        
+                        if (onlyShorts && !template.Name.ToLower().Contains("short")){continue;}
+
                         String templateName = template.Name;
                         TreeNode templateNode = new TreeNode(templateName);
                         templateNode.Tag = new RenderItem(renderer, template, extensions[0]);
+         
                         rendererNode.Nodes.Add(templateNode);
                     } catch (Exception e) {
                         // skip it
@@ -552,7 +549,12 @@ public class EntryPoint {
                         continue;
                     }
                 } else {
-                    TemplateTree.Nodes.Add(rendererNode);
+                    if (onlyShorts){
+                        ShortsTree.Nodes.Add(rendererNode);
+                    }
+                    else{
+                        TemplateTree.Nodes.Add(rendererNode);
+                    }
                 }
             } catch {
                 // skip it
@@ -581,6 +583,9 @@ public class EntryPoint {
     void UpdateSelectedTemplates()
     {
         SelectedTemplates.Clear();
+        SelectedShortsTemplates.Clear();
+
+        // Standard Templates
         foreach (TreeNode node in TemplateTree.Nodes) {
             foreach (TreeNode templateNode in node.Nodes) {
                 if (templateNode.Checked) {
@@ -588,6 +593,16 @@ public class EntryPoint {
                 }
             }
         }
+
+        // Shorts
+        foreach (TreeNode node in ShortsTree.Nodes) {
+            foreach (TreeNode templateNode in node.Nodes) {
+                if (templateNode.Checked) {
+                    SelectedShortsTemplates.Add(templateNode.Tag);
+                }
+            }
+        }
+
     }
 
     void HandleBrowseClick(Object sender, EventArgs args)
@@ -803,4 +818,74 @@ public class EntryPoint {
         return outString.Substring(outString.Length - stringLength);
     }
 
+    List<RenderArgs> RenderRegions(RenderItem renderItem, ArrayList selectedTemplates, String basePath) 
+    {
+        
+        List<RenderArgs> renders = new List<RenderArgs>();
+
+        String outputDirectory = Path.GetDirectoryName(basePath);
+        String baseFileName = Path.GetFileName(basePath);
+
+        int regionIndex = 0;
+        
+        int leadingZeros = myVegas.Project.Regions.Count.ToString().Length;
+        foreach (ScriptPortal.Vegas.Region region in myVegas.Project.Regions) {
+            string propList = "";
+            foreach(var prop in region.GetType().GetProperties()) {
+                propList+= prop.Name + ", ";
+                
+            }
+
+            string prefixName = (SerializeOutputCheckBox.Checked)? FilePrefixNumber(regionIndex, leadingZeros) + " - ": "";
+
+            String templateNameAppended = "";
+            if(selectedTemplates.Count > 1){
+                templateNameAppended = " - " + FixFileName(renderItem.Template.Name) ; 
+
+            } 
+            String regionFilename = Path.Combine(outputDirectory,
+                                                    prefixName + 
+                                                    FixFileName(region.Label) + 
+                                                    templateNameAppended + 
+                                                    " (" + FixFileName(baseFileName) + ")" +
+                                                    renderItem.Extension
+            );
+
+            RenderArgs args = new RenderArgs();
+            args.OutputFile = regionFilename;
+
+            
+
+            // RENDER SHORTS
+            if (RenderCreateShortsCheckBox.Checked 
+                    && region.Label.ToLower().Contains("#short") 
+                    && IsShortCheck(region)
+                )
+            {
+                // TODO: Update Render Template
+//                args.RenderTemplate = GetTemplateByName(shortRenderTemplateName);
+//                args.RenderTemplate = SelectedShortsTemplates[0].Template;
+
+                foreach (RenderItem renderShortItem in SelectedShortsTemplates){
+                    args.RenderTemplate = renderShortItem.Template;
+                    break;
+                }
+
+
+            }
+            else {
+                args.RenderTemplate = renderItem.Template;
+                args.OutputFile = Regex.Replace(args.OutputFile,"#short","(Adjusted Output)",RegexOptions.IgnoreCase);
+            }
+
+            args.Start = region.Position;
+            args.Length = region.Length;
+            renders.Add(args);
+            regionIndex++;
+        }
+
+        return renders;
+    }
+
 }
+
