@@ -2,7 +2,8 @@
 
 |||
 |---|---|
-|Version|0.6|
+|Version|0.7|
+|Updated|2024/11/08|
 
 
 ## Instructions
@@ -21,11 +22,25 @@
 
 ## Feature Requests
 
-*   User selected Shorts Template
+*   UI Clean Up
 *   Handle Error when there's not file selected
 
 
 ## Version History
+
+
+### Version 0.7
+
+*   New Features
+*   Fixes
+    *   Duplicate files when Shorts are rendered
+*   Bugs Found
+    *   Duplicate files when Shorts are rendered
+        1. Create 2+ regions with at least 1 having #short
+        1. Open Render Batch script
+        1. Select 1+ non-short template
+        1. Select 1+ Short template
+        1. Start the rendering (Click OK)
 
 
 ### Version 0.6

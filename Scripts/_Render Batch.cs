@@ -82,6 +82,71 @@ public class EntryPoint {
         }
     }
 
+    void DoBatchRender(ArrayList selectedTemplates, String basePath, RenderMode renderMode){
+        
+        String outputDirectory = Path.GetDirectoryName(basePath);
+        String baseFileName = Path.GetFileName(basePath);
+
+        // make sure templates are selected
+        if ((null == selectedTemplates) || (0 == selectedTemplates.Count))
+            throw new ApplicationException("No render templates selected.");
+
+        // make sure the output directory exists
+        if (!Directory.Exists(outputDirectory))
+            throw new ApplicationException("The output directory does not exist.");
+
+        List<RenderArgs> renders = new List<RenderArgs>();
+
+        int currentRegionNum = 0;
+        int totalRegionCount = myVegas.Project.Regions.Count.ToString().Length;
+
+        // Iterate through Regions
+        foreach (ScriptPortal.Vegas.Region region in myVegas.Project.Regions) {
+            string filePrefix = FilePrefixNumber(currentRegionNum,totalRegionCount);            
+
+            renders.AddRange(RenderRegions( region, selectedTemplates, basePath, filePrefix ) ); 
+
+
+            currentRegionNum++;
+        }
+
+
+
+        
+        // validate all files and prompt for overwrites
+        foreach (RenderArgs args in renders) {
+            ValidateFilePath(args.OutputFile);
+            if (!OverwriteExistingFiles)
+            {
+                if (File.Exists(args.OutputFile)) {
+                    String msg = "File(s) exists. Do you want to overwrite them?";
+                    DialogResult rs;
+                    rs = MessageBox.Show(msg,
+                                         "Overwrite files?",
+                                         MessageBoxButtons.OKCancel,
+                                         MessageBoxIcon.Warning,
+                                         MessageBoxDefaultButton.Button2);
+                    if (DialogResult.Cancel == rs) {
+                        return;
+                    } else {
+                        OverwriteExistingFiles = true;
+                    }
+                }
+            }
+        }
+        
+        // perform all renders.  The Render method returns a member of the RenderStatus enumeration.  If it is
+        // anything other than OK, exit the loop.
+        foreach (RenderArgs args in renders) {
+            if (RenderStatus.Canceled == DoRender(args)) {
+                break;
+            }
+        }
+
+    }
+
+    /*
+    // Depricated
     void DoBatchRender(ArrayList selectedTemplates, String basePath, RenderMode renderMode)
     {
         String outputDirectory = Path.GetDirectoryName(basePath);
@@ -182,6 +247,8 @@ public class EntryPoint {
         }
 
     }
+    */
+
 
     RenderStatus DoRender(RenderArgs args)
     {
@@ -818,7 +885,76 @@ public class EntryPoint {
         return outString.Substring(outString.Length - stringLength);
     }
 
-    List<RenderArgs> RenderRegions(RenderItem renderItem, ArrayList selectedTemplates, String basePath) 
+    List<RenderArgs> RenderRegions( ScriptPortal.Vegas.Region region, 
+                                    ArrayList selectedTemplates, 
+                                    String basePath, string prefixName = "") {
+
+        List<RenderArgs> renders = new List<RenderArgs>();
+
+        String outputDirectory = Path.GetDirectoryName(basePath);
+        String baseFileName = Path.GetFileName(basePath);
+
+        // Iterate Through Selected Templates
+        foreach (RenderItem renderItem in selectedTemplates){
+
+
+            String templateNameAppended = "";
+            if(selectedTemplates.Count > 1){
+                templateNameAppended = " - " + FixFileName(renderItem.Template.Name) ; 
+
+            } 
+            string prefixText = (prefixName != "" && prefixName.Length > 0)?prefixName + " - ": "";
+            String regionFilename = Path.Combine(outputDirectory,
+                                                    prefixText + 
+                                                    FixFileName(region.Label) + 
+                                                    templateNameAppended + 
+                                                    " (" + FixFileName(baseFileName) + ")" +
+                                                    renderItem.Extension
+            );
+
+            RenderArgs args = new RenderArgs();
+            args.OutputFile = regionFilename;
+
+
+            // RENDER SHORTS
+            if ( SelectedShortsTemplates.Count > 0
+                    && region.Label.ToLower().Contains("#short") 
+                    && IsShortCheck(region)
+                )
+            {
+                foreach (RenderItem renderShortItem in SelectedShortsTemplates){
+                    args.RenderTemplate = renderShortItem.Template;
+                    break;
+                }
+
+                args.Start = region.Position;
+                args.Length = region.Length;
+                renders.Add(args);
+                break;
+
+            }
+            // RENDER STANDARD
+            else {
+                args.RenderTemplate = renderItem.Template;
+                args.OutputFile = Regex.Replace(args.OutputFile,"#short","(Adjusted Output)",RegexOptions.IgnoreCase);
+                
+                args.Start = region.Position;
+                args.Length = region.Length;
+                renders.Add(args);
+            }
+
+
+        }
+
+
+        return renders;
+
+    }
+
+
+    List<RenderArgs> RenderRegions( RenderItem renderItem, 
+                                    ArrayList selectedTemplates, 
+                                    String basePath) 
     {
         
         List<RenderArgs> renders = new List<RenderArgs>();
@@ -862,9 +998,7 @@ public class EntryPoint {
                     && IsShortCheck(region)
                 )
             {
-                // TODO: Update Render Template
-//                args.RenderTemplate = GetTemplateByName(shortRenderTemplateName);
-//                args.RenderTemplate = SelectedShortsTemplates[0].Template;
+                
 
                 foreach (RenderItem renderShortItem in SelectedShortsTemplates){
                     args.RenderTemplate = renderShortItem.Template;
