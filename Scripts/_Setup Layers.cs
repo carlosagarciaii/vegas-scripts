@@ -25,6 +25,9 @@ public class EntryPoint {
     }   // FromVegas
 
     DialogResult ShowMainDialog(){
+        
+        int buttonWidth = 80;
+        
         Form dlog = new Form();
         dlog.Text = "Setup Layers";
         dlog.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -42,7 +45,7 @@ public class EntryPoint {
         okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
         dlog.AcceptButton = okButton;
         dlog.Controls.Add(okButton);
-        
+
         return dlog.ShowDialog(myVegas.MainWindow);
     }   // ShowMainDialog
 
