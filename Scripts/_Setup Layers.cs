@@ -30,9 +30,9 @@ public class EntryPoint {
         dlog.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
         dlog.MaximizeBox = false;
         dlog.StartPosition = FormStartPosition.CenterScreen;
+        dlog.FormClosing = this.HandleMainClosing;
 
-
-
+        return dlog.ShowDialog(myVegas.MainWindow);
     }   // ShowMainDialog
 
     void HandleMainClosing(Object sender, EventArgs args){
