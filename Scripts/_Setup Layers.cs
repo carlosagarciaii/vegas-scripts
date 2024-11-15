@@ -17,10 +17,12 @@ public class EntryPoint {
 
     ScriptPortal.Vegas.Vegas myVegas = null;
 
-    public void FromVegas(Vegas myVegas){
+    public void FromVegas(Vegas vegas){
+
+        myVegas = vegas;
 
         DialogResult result = ShowMainDialog();
-
+        myVegas.UpdateUI();
 
     }   // FromVegas
 
@@ -33,10 +35,13 @@ public class EntryPoint {
         dlog.Text = "Setup Layers";
         dlog.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
         dlog.MaximizeBox = false;
+        dlog.Width = 610;
+        dlog.Height = 800;
         dlog.StartPosition = FormStartPosition.CenterScreen;
         dlog.FormClosing += this.HandleMainClosing;
 
 
+        // BUTTONS
         Button okButton = new Button();
         okButton.Text = "OK";
         okButton.Left = dlog.Width - (2*(buttonWidth+20));
@@ -46,6 +51,16 @@ public class EntryPoint {
         okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
         dlog.AcceptButton = okButton;
         dlog.Controls.Add(okButton);
+
+
+        Button cancelButton = new Button();
+        cancelButton.Text = "Cancel";
+        cancelButton.Left = dlog.Width - (1*(buttonWidth+20));
+        cancelButton.Top = buttonTop;
+        cancelButton.Height = cancelButton.Font.Height + 12;
+        cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+        dlog.CancelButton = cancelButton;
+        dlog.Controls.Add(cancelButton);
 
         return dlog.ShowDialog(myVegas.MainWindow);
     }   // ShowMainDialog
