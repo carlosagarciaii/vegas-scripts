@@ -27,7 +27,8 @@ public class EntryPoint {
     DialogResult ShowMainDialog(){
         
         int buttonWidth = 80;
-        
+        int buttonTop = 20;
+
         Form dlog = new Form();
         dlog.Text = "Setup Layers";
         dlog.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
