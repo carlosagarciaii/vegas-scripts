@@ -32,6 +32,17 @@ public class EntryPoint {
         dlog.StartPosition = FormStartPosition.CenterScreen;
         dlog.FormClosing += this.HandleMainClosing;
 
+
+        Button okButton = new Button();
+        okButton.Text = "OK";
+        okButton.Left = dlog.Width - (2*(buttonWidth+20));
+        okButton.Top = buttonTop;
+        okButton.Width = buttonWidth;
+        okButton.Height = okButton.Font.Height + 12;
+        okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+        dlog.AcceptButton = okButton;
+        dlog.Controls.Add(okButton);
+        
         return dlog.ShowDialog(myVegas.MainWindow);
     }   // ShowMainDialog
 
