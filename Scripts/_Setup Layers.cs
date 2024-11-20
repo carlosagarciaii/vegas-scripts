@@ -57,7 +57,7 @@ public class EntryPoint {
         BrowseButton.Click += new EventHandler(this.HandleBrowseClick);
         dlog.Controls.Add(BrowseButton);
 
-        buttonTop = FileNameBox.Height + 10;
+        buttonTop = FileNameBox.Bottom + 10;
 
 
         // BUTTONS
