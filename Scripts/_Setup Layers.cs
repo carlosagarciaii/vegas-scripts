@@ -18,7 +18,7 @@ public class EntryPoint {
     ScriptPortal.Vegas.Vegas myVegas = null;
 
     TextBox FileNameBox;
-    string defaultBasePath = ""String.Empty"";
+    string defaultBasePath = "";
     Button BrowseButton;
 
     public void FromVegas(Vegas vegas){
