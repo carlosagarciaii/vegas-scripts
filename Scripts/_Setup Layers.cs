@@ -93,8 +93,9 @@ public class EntryPoint {
     {
         SaveFileDialog saveFileDialog = new SaveFileDialog();
         saveFileDialog.Filter = "All Files (*.*)|*.*";
-        saveFileDialog.CheckPathExists = false;
+        saveFileDialog.CheckPathExists = true;
         saveFileDialog.AddExtension = false;
+        return; 
         if (null != FileNameBox) {
             String filename = FileNameBox.Text;
             String initialDir = Path.GetDirectoryName(filename);
