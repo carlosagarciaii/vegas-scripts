@@ -82,8 +82,8 @@ public class EntryPoint {
         dlog.Controls.Add(cancelButton);
 
 
-        buttonTop = okButton.Bottom + 10;
-        dlog.Height = buttonTop;
+        buttonTop = cancelButton.Bottom + 10;
+        dlog.Height = buttonTop + 10;
 
         return dlog.ShowDialog(myVegas.MainWindow);
     }   // ShowMainDialog
