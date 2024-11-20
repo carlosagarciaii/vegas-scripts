@@ -33,7 +33,7 @@ public class EntryPoint {
     DialogResult ShowMainDialog(){
         
         int buttonWidth = 80;
-        int buttonTop = 20;
+        int buttonTop = 10;
 
         // SETUP FORM
         Form dlog = new Form();
@@ -46,7 +46,7 @@ public class EntryPoint {
         dlog.FormClosing += this.HandleMainClosing;
 
         //  BROWSE FOR FILE
-        FileNameBox = AddTextControl(dlog, "Image File Path", 6, 460, 10, defaultBasePath);
+        FileNameBox = AddTextControl(dlog, "Image File Path", 6, 460, buttonTop, defaultBasePath);
 
         BrowseButton = new Button();
         BrowseButton.Left = FileNameBox.Right + 4;
@@ -57,6 +57,7 @@ public class EntryPoint {
         BrowseButton.Click += new EventHandler(this.HandleBrowseClick);
         dlog.Controls.Add(BrowseButton);
 
+        buttonTop = FileNameBox.Height + 10;
 
 
         // BUTTONS
