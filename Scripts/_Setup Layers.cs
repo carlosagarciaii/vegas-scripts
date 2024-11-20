@@ -18,7 +18,7 @@ public class EntryPoint {
     ScriptPortal.Vegas.Vegas myVegas = null;
 
     TextBox FileNameBox;
-    string defaultBasePath = "";
+    string defaultBasePath = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
     Button BrowseButton;
 
     public void FromVegas(Vegas vegas){
@@ -95,7 +95,6 @@ public class EntryPoint {
         saveFileDialog.Filter = "All Files (*.*)|*.*";
         saveFileDialog.CheckPathExists = true;
         saveFileDialog.AddExtension = false;
-        return; 
         if (null != FileNameBox) {
             String filename = FileNameBox.Text;
             String initialDir = Path.GetDirectoryName(filename);
