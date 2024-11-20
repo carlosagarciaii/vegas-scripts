@@ -17,7 +17,9 @@ public class EntryPoint {
 
     ScriptPortal.Vegas.Vegas myVegas = null;
 
-    string ImageFile = String.Empty;
+    TextBox FileNameBox;
+    string defaultBasePath = String.Empty;
+    Button BrowseButton;
 
     public void FromVegas(Vegas vegas){
 
@@ -44,7 +46,7 @@ public class EntryPoint {
         dlog.FormClosing += this.HandleMainClosing;
 
         //  BROWSE FOR FILE
-        FileNameBox = AddTextControl(dlog, "Base File Name", titleBarHeight + 6, 460, 10, defaultBasePath);
+        FileNameBox = AddTextControl(dlog, "Image File Path", 6, 460, 10, defaultBasePath);
 
         BrowseButton = new Button();
         BrowseButton.Left = FileNameBox.Right + 4;
