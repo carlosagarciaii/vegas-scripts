@@ -18,7 +18,7 @@ public class EntryPoint {
     ScriptPortal.Vegas.Vegas myVegas = null;
 
     TextBox FileNameBox;
-    string defaultBasePath = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+    string defaultBasePath = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
     Button BrowseButton;
 
     public void FromVegas(Vegas vegas){
