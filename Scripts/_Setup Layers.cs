@@ -98,6 +98,7 @@ public class EntryPoint {
         if (null != FileNameBox) {
             String filename = FileNameBox.Text;
             String initialDir = Path.GetDirectoryName(filename);
+            if (Directory.Exists(filename)){ initialDir = filename;}
             if (Directory.Exists(initialDir)) {
                 saveFileDialog.InitialDirectory = initialDir;
             }
