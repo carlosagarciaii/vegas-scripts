@@ -20,6 +20,7 @@ public class EntryPoint {
     TextBox FileNameBox;
     string defaultBasePath = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
     Button BrowseButton;
+    TextBox TrackNameBox;
 
     public void FromVegas(Vegas vegas){
 
@@ -53,11 +54,17 @@ public class EntryPoint {
         BrowseButton.Top = FileNameBox.Top - 2;
         BrowseButton.Width = buttonWidth;
         BrowseButton.Height = BrowseButton.Font.Height + 12;
-        BrowseButton.Text = "Browse...";
-        BrowseButton.Click += new EventHandler(this.HandleBrowseClick);
+        BrowseButton.Text = "Open...";
+        BrowseButton.Click += new EventHandler(this.HandleOpenFileClick);
         dlog.Controls.Add(BrowseButton);
 
         buttonTop = FileNameBox.Bottom + 10;
+
+        // Track Name
+        TrackNameBox = AddTextControl(dlog,"Track Name", 6, 460, buttonTop, "New Track");
+
+
+        buttonTop = TrackNameBox.Bottom + 10;
 
 
         // BUTTONS
@@ -90,14 +97,16 @@ public class EntryPoint {
 
     void HandleMainClosing(Object sender, EventArgs args){
 
+        VideoTrack newTrack = new VideoTrack(0,TrackNameBox.Text);
+        myVegas.Project.Tracks.Add(newTrack);
 
     }   //  HandleMainClosing
 
 
-    void HandleBrowseClick(Object sender, EventArgs args)
+    void HandleOpenFileClick(Object sender, EventArgs args)
     {
         OpenFileDialog openFileDialgo = new OpenFileDialog();
-        openFileDialgo.Filter = "Image Files |*.png,*.jpg,*.jpeg";
+        openFileDialgo.Filter = "Image Files |*.png,*.jpg,*.jpeg,*.bmp,*.tif, *.tiff";
         openFileDialgo.CheckPathExists = true;
         openFileDialgo.AddExtension = false;
         if (null != FileNameBox) {
