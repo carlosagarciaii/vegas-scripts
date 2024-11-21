@@ -25,6 +25,7 @@ public class EntryPoint {
     RadioButton AddFadeNoneOption;
     RadioButton AddFadeCurveOption;
     RadioButton AddFadeSharpOption;
+    TextBox FadeDurationTime;
 
     public void FromVegas(Vegas vegas){
 
@@ -77,6 +78,11 @@ public class EntryPoint {
         AddFadeSharpOption = AddRadioControl(dlog,"Sharp",AddFadeCurveOption.Right ,buttonTop,false);
         
         buttonTop = AddFadeNoneOption.Bottom + 10;
+
+        // Fade Time
+
+        FadeDurationTime = AddTextControl(dlog,"Fade Duration",9,460, buttonTop, "00:00:00:15");
+
 
         // BUTTONS
         Button okButton = new Button();
@@ -145,7 +151,7 @@ public class EntryPoint {
             clipEvent.Takes.Add(take);
 
             if (!AddFadeNoneOption.Checked){
-                Timecode fadeDuration = new Timecode("00:00:00:15");
+                Timecode fadeDuration = new Timecode(FadeDurationTime.Text);
                 if (!AddFadeNoneOption.Checked)
                 clipEvent.FadeIn.Length = fadeDuration;
                 clipEvent.FadeOut.Length = fadeDuration;
