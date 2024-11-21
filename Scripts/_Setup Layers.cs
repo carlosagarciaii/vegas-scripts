@@ -114,10 +114,24 @@ public class EntryPoint {
         if (media == null)
         {
             DisplayErrorMsg(dlg,"Failed to load Media File","Failed to load Media File:", mediaFilePath);
+            return;
         }
 
         if (myVegas.Project.Regions.Count == 0){
             DisplayErrorMsg(dlg,"No Regions Found","No Regions were set in the project");
+            return;
+        }
+        
+        foreach (ScriptPortal.Vegas.Region region in myVegas.Project.Regions) {
+            
+            Timecode clipStart = region.Position;
+            Timecode clipLength = region.Length;
+
+            VideoEvent clipEvent = new VideoEvent(clipStart,clipLength);
+            newTrack.Events.Add(clipEvent);
+
+
+
         }
 
 
