@@ -21,7 +21,6 @@ public class EntryPoint {
     string defaultBasePath = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
     Button BrowseButton;
     TextBox TrackNameBox;
-    CheckBox AddFadeCheckBox;
     
     RadioButton AddFadeNoneOption;
     RadioButton AddFadeCurveOption;
@@ -145,12 +144,18 @@ public class EntryPoint {
             Take take = new Take(media.GetVideoStreamByIndex(0));
             clipEvent.Takes.Add(take);
 
-            if (AddFadeCheckBox.Checked){
+            if (!AddFadeNoneOption.Checked){
                 Timecode fadeDuration = new Timecode("00:00:00:15");
+                if (!AddFadeNoneOption.Checked)
                 clipEvent.FadeIn.Length = fadeDuration;
                 clipEvent.FadeOut.Length = fadeDuration;
-                clipEvent.FadeIn.Curve = CurveType.Smooth;
-                clipEvent.FadeOut.Curve = CurveType.Sharp;
+                if(AddFadeCurveOption.Checked){
+                    clipEvent.FadeIn.Curve = CurveType.Smooth;
+                }
+                else if (AddFadeSharpOption.Checked){
+                    clipEvent.FadeOut.Curve = CurveType.Sharp;
+                }
+                
             }
         }
 
