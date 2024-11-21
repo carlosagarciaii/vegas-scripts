@@ -165,7 +165,7 @@ public class EntryPoint {
             Take take = new Take(media.GetVideoStreamByIndex(0));
             clipEvent.Takes.Add(take);
 
-            SetTransparency(dlg,clipEvent,0.5);
+            SetTransparency(dlg,clipEvent,0.5f);
 
             if (!AddFadeNoneOption.Checked){
                 Timecode fadeDuration = new Timecode(fadeDurationInput);
