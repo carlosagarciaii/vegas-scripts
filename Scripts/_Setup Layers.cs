@@ -79,10 +79,10 @@ public class EntryPoint {
         fadeCurveOptionGroup.Location = new System.Drawing.Point(6,buttonTop);
         fadeCurveOptionGroup.Size = new System.Drawing.Size(460,100);
 
-        AddFadeCurveOption = AddRadioControl(fadeCurveOptionGroup,"Curved",6,buttonTop,true);
-        AddFadeSharpOption = AddRadioControl(fadeCurveOptionGroup,"Sharp",AddFadeCurveOption.Right + 10,buttonTop,true);
+        AddFadeCurveOption = AddRadioControl(dlog,"Curved",6,buttonTop,true);
+        AddFadeSharpOption = AddRadioControl(dlog,"Sharp",AddFadeCurveOption.Right + 10,buttonTop,true);
         
-        buttonTop = fadeCurveOptionGroup.Bottom + 10;
+        buttonTop = AddFadeSharpOption.Bottom + 10;
 
         // BUTTONS
         Button okButton = new Button();
