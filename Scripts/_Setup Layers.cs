@@ -100,13 +100,26 @@ public class EntryPoint {
         if (null == dlg) return;
         if (DialogResult.OK != dlg.DialogResult) return;
 
-        if (!File.Exists(FileNameBox.Text)){
-            DisplayErrorMsg(dlg,"File Not Found","Could not find the file", FileNameBox.Text);
+        string mediaFilePath = FileNameBox.Text;
+
+        if (!File.Exists(mediaFilePath)){
+            DisplayErrorMsg(dlg,"File Not Found","Could not find the file", mediaFilePath);
             return;
         }
 
         VideoTrack newTrack = new VideoTrack(0,TrackNameBox.Text);
         myVegas.Project.Tracks.Add(newTrack);
+
+        Media media = new Media(mediaFilePath);
+        if (media == null)
+        {
+            DisplayErrorMsg(dlg,"Failed to load Media File","Failed to load Media File:", mediaFilePath);
+        }
+
+        if (myVegas.Project.Regions.Count = 0){
+            DisplayErrorMsg(dlg,"No Regions Found","No Regions were set in the project");
+        }
+
 
     }   //  HandleMainClosing
 
