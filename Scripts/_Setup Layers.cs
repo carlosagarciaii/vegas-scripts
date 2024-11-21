@@ -96,6 +96,9 @@ public class EntryPoint {
     }   // ShowMainDialog
 
     void HandleMainClosing(Object sender, EventArgs args){
+        Form dlg = sender as Form;
+        if (null == dlg) return;
+        if (DialogResult.OK != dlg.DialogResult) return;
 
         VideoTrack newTrack = new VideoTrack(0,TrackNameBox.Text);
         myVegas.Project.Tracks.Add(newTrack);
