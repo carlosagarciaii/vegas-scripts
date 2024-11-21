@@ -46,7 +46,7 @@ public class EntryPoint {
         dlog.Text = "Setup Layers";
         dlog.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
         dlog.MaximizeBox = false;
-        dlog.Width = 550;
+        dlog.Width = 570;
         dlog.Height = 600;
         dlog.StartPosition = FormStartPosition.CenterScreen;
         dlog.FormClosing += this.HandleMainClosing;
@@ -62,6 +62,8 @@ public class EntryPoint {
         BrowseButton.Text = "Open...";
         BrowseButton.Click += new EventHandler(this.HandleOpenFileClick);
         dlog.Controls.Add(BrowseButton);
+
+        dlog.Width = BrowseButton.Right + 20;
 
         buttonTop = FileNameBox.Bottom + 10;
 
