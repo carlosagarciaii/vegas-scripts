@@ -53,7 +53,7 @@ public class EntryPoint {
         dlog.FormClosing += this.HandleMainClosing;
 
         //  BROWSE FOR FILE
-        FileNameBox = AddTextControl(dlog, "Image File Path", 6, 460, buttonTop, defaultBasePath);
+        FileNameBox = AddTextControl(dlog, "Media File Path", 6, 460, buttonTop, defaultBasePath);
 
         BrowseButton = new Button();
         BrowseButton.Left = FileNameBox.Right + 4;
@@ -69,7 +69,7 @@ public class EntryPoint {
         buttonTop = FileNameBox.Bottom + 10;
 
         // Track Name
-        TrackNameBox = AddTextControl(dlog,"Track Name", 6, textBoxWidth, buttonTop, "");
+        TrackNameBox = AddTextControl(dlog,"Track Name", 6, textBoxWidth, buttonTop, "", FileNameBox.Left);
 
 
         buttonTop = TrackNameBox.Bottom + 10;
@@ -84,7 +84,7 @@ public class EntryPoint {
 
         // Fade Time
 
-        FadeDurationTime = AddTextControl(dlog,"Fade Duration",9,textBoxWidth, buttonTop, "00:00:00:15");
+        FadeDurationTime = AddTextControl(dlog,"Fade Duration",9,textBoxWidth, buttonTop, "00:00:00:15", FileNameBox.Left);
 
         buttonTop = FadeDurationTime.Bottom + 10;
 
@@ -243,6 +243,27 @@ public class EntryPoint {
 
         return textbox;
     }   // AddTextControl
+   
+    TextBox AddTextControl(Form dlog, String labelName, int left, int width, int top, String defaultValue, int textBoxLeft)
+    {
+        Label label = new Label();
+        label.AutoSize = true;
+        label.Text = labelName + ":";
+        label.Left = left;
+        label.Top = top + 4;
+        dlog.Controls.Add(label);
+
+        TextBox textbox = new TextBox();
+        textbox.Multiline = false;
+        textbox.Left = textBoxLeft;
+        textbox.Top = top;
+        textbox.Width = width - (label.Width);
+        textbox.Text = defaultValue;
+        dlog.Controls.Add(textbox);
+
+        return textbox;
+    }   // AddTextControl
+
 
     CheckBox AddCheckBox(Form dlog,String labelName, int left, int top, bool isChecked = false, bool isEnabled = true){
         Label label = new Label();
