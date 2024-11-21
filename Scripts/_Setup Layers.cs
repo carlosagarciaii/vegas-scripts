@@ -21,6 +21,9 @@ public class EntryPoint {
     string defaultBasePath = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
     Button BrowseButton;
     TextBox TrackNameBox;
+    CheckBox AddFadeCheckBox;
+    RadioButton AddFadeCurveOption;
+    RadioButton AddFadeSharpOption;
 
     public void FromVegas(Vegas vegas){
 
@@ -65,6 +68,15 @@ public class EntryPoint {
 
 
         buttonTop = TrackNameBox.Bottom + 10;
+
+        //  Fade Options
+        AddFadeCheckBox = AddCheckBox(dlog,"Fade",6,buttonTop);
+
+        buttonTop = AddFadeCheckBox.Bottom + 10;
+
+        GroupBox fadeCurveOptionGroup = new GroupBox();
+        AddFadeCurveOption = AddRadioControl(fadeCurveOptionGroup,"Curved",6,buttonTop,true);
+        AddFadeSharpOption = AddRadioControl(fadeCurveOptionGroup,"Curved",AddFadeCurveOption.Right + 10,buttonTop,true);
 
 
         // BUTTONS
@@ -133,12 +145,13 @@ public class EntryPoint {
             Take take = new Take(media.GetVideoStreamByIndex(0));
             clipEvent.Takes.Add(take);
 
-            Timecode fadeDuration = new Timecode("00:00:00:15");
-            clipEvent.FadeIn.Length = fadeDuration;
-            clipEvent.FadeOut.Length = fadeDuration;
-            clipEvent.FadeIn.Curve = CurveType.Smooth;
-            clipEvent.FadeOut.Curve = CurveType.Sharp;
-
+            if (AddFadeCheckBox.Checked){
+                Timecode fadeDuration = new Timecode("00:00:00:15");
+                clipEvent.FadeIn.Length = fadeDuration;
+                clipEvent.FadeOut.Length = fadeDuration;
+                clipEvent.FadeIn.Curve = CurveType.Smooth;
+                clipEvent.FadeOut.Curve = CurveType.Sharp;
+            }
         }
 
 
@@ -248,6 +261,28 @@ public class EntryPoint {
 
         return radiobutton;
     }   // AddRadioControl
+
+
+    RadioButton AddRadioControl(GroupBox gbox, String labelName, int left, int top, bool enabled)
+    {
+        Label label = new Label();
+        label.AutoSize = true;
+        label.Text = labelName;
+        label.Left = left;
+        label.Top = top + 4;
+        label.Enabled = enabled;
+        gbox.Controls.Add(label);
+
+        RadioButton radiobutton = new RadioButton();
+        radiobutton.Left = label.Right;
+        radiobutton.Width = 36;
+        radiobutton.Top = top;
+        radiobutton.Enabled = enabled;
+        gbox.Controls.Add(radiobutton);
+
+        return radiobutton;
+    }   // AddRadioControl
+
 
     void DisplayErrorMsg(Form dlog, string msgBoxTitle, params string[] errorMsgLines ){
             String title = msgBoxTitle;
