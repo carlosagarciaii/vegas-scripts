@@ -343,7 +343,7 @@ public class EntryPoint {
 
     }   //  DisplayErrorMsg
 
-
+/*
     void ApplyPanCrop(VideoEvent videoEvent)
     {
         EventPanCrop panCrop = videoEvent.PanCrop;
@@ -369,7 +369,7 @@ public class EntryPoint {
         // Commit the changes
         panCrop.Keyframes.Normalize();  // Normalize the timeline keyframes
     }   //  ApplyPanCrop
-
+*/
 
     void SetTransparency(Form dlog, VideoEvent videoEvent, double opacity)
     {
