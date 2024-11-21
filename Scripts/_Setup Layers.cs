@@ -40,6 +40,7 @@ public class EntryPoint {
         
         int buttonWidth = 80;
         int buttonTop = 10;
+        int textBoxWidth = 200;
 
         // SETUP FORM
         Form dlog = new Form();
@@ -68,7 +69,7 @@ public class EntryPoint {
         buttonTop = FileNameBox.Bottom + 10;
 
         // Track Name
-        TrackNameBox = AddTextControl(dlog,"Track Name", 6, 460, buttonTop, "");
+        TrackNameBox = AddTextControl(dlog,"Track Name", 6, textBoxWidth, buttonTop, "");
 
 
         buttonTop = TrackNameBox.Bottom + 10;
@@ -83,7 +84,7 @@ public class EntryPoint {
 
         // Fade Time
 
-        FadeDurationTime = AddTextControl(dlog,"Fade Duration",9,460, buttonTop, "00:00:00:15");
+        FadeDurationTime = AddTextControl(dlog,"Fade Duration",9,textBoxWidth, buttonTop, "00:00:00:15");
 
         buttonTop = FadeDurationTime.Bottom + 10;
 
