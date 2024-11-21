@@ -96,7 +96,7 @@ public class EntryPoint {
 
     void HandleBrowseClick(Object sender, EventArgs args)
     {
-        OpenFileDialog openFileDialgo = new SaveFileDialog();
+        OpenFileDialog openFileDialgo = new OpenFileDialog();
         openFileDialgo.Filter = "All Files (*.*)|*.*";
         openFileDialgo.CheckPathExists = true;
         openFileDialgo.AddExtension = false;
