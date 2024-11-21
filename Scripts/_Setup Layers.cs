@@ -22,6 +22,8 @@ public class EntryPoint {
     Button BrowseButton;
     TextBox TrackNameBox;
     CheckBox AddFadeCheckBox;
+    
+    RadioButton AddFadeNoneOption;
     RadioButton AddFadeCurveOption;
     RadioButton AddFadeSharpOption;
 
@@ -79,7 +81,8 @@ public class EntryPoint {
         fadeCurveOptionGroup.Location = new System.Drawing.Point(6,buttonTop);
         fadeCurveOptionGroup.Size = new System.Drawing.Size(460,100);
 
-        AddFadeCurveOption = AddRadioControl(dlog,"Curved",6,buttonTop,true);
+        AddFadeNoneOption = AddRadioControl(dlog,"Curved",6,buttonTop,true);
+        AddFadeCurveOption = AddRadioControl(dlog,"Curved",AddFadeNoneOption.Right + 10,buttonTop,true);
         AddFadeSharpOption = AddRadioControl(dlog,"Sharp",AddFadeCurveOption.Right + 10,buttonTop,true);
         
         buttonTop = AddFadeSharpOption.Bottom + 10;
