@@ -61,7 +61,7 @@ public class EntryPoint {
         buttonTop = FileNameBox.Bottom + 10;
 
         // Track Name
-        TrackNameBox = AddTextControl(dlog,"Track Name", 6, 460, buttonTop, "New Track");
+        TrackNameBox = AddTextControl(dlog,"Track Name", 6, 460, buttonTop, "");
 
 
         buttonTop = TrackNameBox.Bottom + 10;
@@ -132,6 +132,12 @@ public class EntryPoint {
 
             Take take = new Take(media.GetVideoStreamByIndex(0));
             clipEvent.Takes.Add(take);
+
+            Timecode fadeDuration = new Timecode("00:00:00:15");
+            clipEvent.FadeIn.Length = fadeDuration;
+            clipEvent.FadeOut.Length = fadeDuration;
+            clipEvent.FadeIn.Curve = CurveType.Smooth;
+            clipEvent.FadeOut.Curve = CurveType.Sharp;
 
         }
 
