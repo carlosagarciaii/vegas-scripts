@@ -74,8 +74,8 @@ public class EntryPoint {
         //  Fade Options
         Label fadeOptionsLabel = AddLabelOnly(dlog,"Fade Options:",6,buttonTop);
         AddFadeNoneOption = AddRadioControl(dlog,"None",fadeOptionsLabel.Right + 5,buttonTop,true);
-        AddFadeCurveOption = AddRadioControl(dlog,"Curved",AddFadeNoneOption.Right ,buttonTop,true);
-        AddFadeSharpOption = AddRadioControl(dlog,"Sharp",AddFadeCurveOption.Right ,buttonTop,true);
+        AddFadeCurveOption = AddRadioControl(dlog,"Curved",AddFadeNoneOption.Right ,buttonTop,false);
+        AddFadeSharpOption = AddRadioControl(dlog,"Sharp",AddFadeCurveOption.Right ,buttonTop,false);
         
         buttonTop = AddFadeNoneOption.Bottom + 10;
 
