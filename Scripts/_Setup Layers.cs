@@ -47,7 +47,7 @@ public class EntryPoint {
         dlog.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
         dlog.MaximizeBox = false;
         dlog.Width = 610;
-        dlog.Height = 800;
+        dlog.Height = 750;
         dlog.StartPosition = FormStartPosition.CenterScreen;
         dlog.FormClosing += this.HandleMainClosing;
 
@@ -72,7 +72,7 @@ public class EntryPoint {
         buttonTop = TrackNameBox.Bottom + 10;
 
         //  Fade Options
-        Label fadeOptionsLabel = AddLabelOnly(dlog,"Fade Options:",6,buttonTop);
+        Label fadeOptionsLabel = AddLabelOnly(dlog,"Fade Options:",7,buttonTop);
         AddFadeNoneOption = AddRadioControl(dlog,"None",fadeOptionsLabel.Right + 5,buttonTop,true);
         AddFadeCurveOption = AddRadioControl(dlog,"Curved",AddFadeNoneOption.Right ,buttonTop,false);
         AddFadeSharpOption = AddRadioControl(dlog,"Sharp",AddFadeCurveOption.Right ,buttonTop,false);
