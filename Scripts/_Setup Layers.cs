@@ -116,7 +116,7 @@ public class EntryPoint {
             DisplayErrorMsg(dlg,"Failed to load Media File","Failed to load Media File:", mediaFilePath);
         }
 
-        if (myVegas.Project.Regions.Count = 0){
+        if (myVegas.Project.Regions.Count == 0){
             DisplayErrorMsg(dlg,"No Regions Found","No Regions were set in the project");
         }
 
