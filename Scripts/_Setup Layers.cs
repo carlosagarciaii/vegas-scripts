@@ -165,6 +165,8 @@ public class EntryPoint {
             Take take = new Take(media.GetVideoStreamByIndex(0));
             clipEvent.Takes.Add(take);
 
+            SetTransparency(dlog,clipEvent,0.5);
+            
             if (!AddFadeNoneOption.Checked){
                 Timecode fadeDuration = new Timecode(fadeDurationInput);
                 if (!AddFadeNoneOption.Checked)
@@ -178,6 +180,7 @@ public class EntryPoint {
                 }
                 
             }
+
         }
 
 
@@ -212,7 +215,7 @@ public class EntryPoint {
     }
 
 
-
+    // STandard Form Controls
     Label AddLabelOnly(Form dlog, String labelName, int left, int top){
         
         Label label = new Label();
@@ -338,8 +341,45 @@ public class EntryPoint {
             }
             MessageBox.Show(dlog, msg.ToString(), msgBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-    }
+    }   //  DisplayErrorMsg
 
+
+    void ApplyPanCrop(VideoEvent videoEvent)
+    {
+        EventPanCrop panCrop = videoEvent.PanCrop;
+
+        // Clear existing keyframes
+        panCrop.Keyframes.Clear();
+
+        // Add a keyframe at the start
+        EventPanCropKeyframe startKeyframe = new EventPanCropKeyframe();
+        startKeyframe.TopLeft = new ScriptPortal.Vegas.Position2D(0, 0);  // Top-left of the crop
+        startKeyframe.Width = 1920;  // Crop width (match your video resolution)
+        startKeyframe.Height = 1080; // Crop height (match your video resolution)
+        panCrop.Keyframes.Add(startKeyframe);
+
+        // Add a keyframe at 2 seconds with a zoom effect
+        Timecode zoomTime = new Timecode("00:00:02:00");
+        EventPanCropKeyframe zoomKeyframe = new EventPanCropKeyframe(zoomTime);
+        zoomKeyframe.TopLeft = new ScriptPortal.Vegas.Position2D(500, 300); // Pan to this position
+        zoomKeyframe.Width = 1280;  // Zoom into the video
+        zoomKeyframe.Height = 720;
+        panCrop.Keyframes.Add(zoomKeyframe);
+
+        // Commit the changes
+        panCrop.Keyframes.Normalize();  // Normalize the timeline keyframes
+    }   //  ApplyPanCrop
+
+
+    void SetTransparency(Form dlog, VideoEvent videoEvent, double opacity)
+    {
+        if (opacity < 0.0 || opacity > 1.0)
+        {
+            //  throw new ArgumentOutOfRangeException(nameof(opacity),);
+            DisplayErrorMsg(dlog,"Transparency Error", "Opacity must be between 0.0 (fully transparent) and 1.0 (fully opaque).");
+        }
+        videoEvent.Opacity = opacity;
+    }
 
 }   // EntryPoint
 
