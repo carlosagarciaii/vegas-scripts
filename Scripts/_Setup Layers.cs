@@ -63,7 +63,7 @@ public class EntryPoint {
         BrowseButton.Click += new EventHandler(this.HandleOpenFileClick);
         dlog.Controls.Add(BrowseButton);
 
-        dlog.Width = BrowseButton.Right + 20;
+        dlog.Width = BrowseButton.Right + 25;
 
         buttonTop = FileNameBox.Bottom + 10;
 
