@@ -142,7 +142,7 @@ public class EntryPoint {
         var timeFormatRegex = @"^(\d\d:){3}\d\d$";
         var match = Regex.Match(fadeDurationInput,timeFormatRegex);
         if (!AddFadeNoneOption.Checked && !match.Success){
-            DisplayErrorMsg(dlg,"Fade Duration Error","An imporoper format was used for the fade duration.","Formatting should be: ","\t##:##:##:##");
+            DisplayErrorMsg(dlg,"Fade Duration Error","An imporoper format was used for the fade duration.","Formatting should be: \t##:##:##:##","","Example:\t00:00:01:00");
             return;
         }
 
