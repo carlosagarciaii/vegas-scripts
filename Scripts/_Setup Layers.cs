@@ -221,7 +221,7 @@ public class EntryPoint {
             foreach(string msgLine in errorMsgLines){
                 msg.Append(msgLine + "\n");
             }
-            MessageBox.Show(dlg, msg.ToString(), msgBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(dlog, msg.ToString(), msgBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
     }
 
