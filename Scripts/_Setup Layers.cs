@@ -371,14 +371,14 @@ public class EntryPoint {
     }   //  ApplyPanCrop
 */
 
-    void SetTransparency(Form dlog, VideoEvent videoEvent, double opacity)
+    void SetTransparency(Form dlog, VideoEvent videoEvent, single opacity)
     {
         if (opacity < 0.0 || opacity > 1.0)
         {
             //  throw new ArgumentOutOfRangeException(nameof(opacity),);
             DisplayErrorMsg(dlog,"Transparency Error", "Opacity must be between 0.0 (fully transparent) and 1.0 (fully opaque).");
         }
-        videoEvent.Opacity = opacity;
+        videoEvent.CompositeLevel = opacity;
     }
 
 }   // EntryPoint
