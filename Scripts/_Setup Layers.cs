@@ -105,10 +105,10 @@ public class EntryPoint {
 
     void HandleOpenFileClick(Object sender, EventArgs args)
     {
-        OpenFileDialog openFileDialgo = new OpenFileDialog();
-        openFileDialgo.Filter = "Image Files |*.png,*.jpg,*.jpeg,*.bmp,*.tif, *.tiff";
-        openFileDialgo.CheckPathExists = true;
-        openFileDialgo.AddExtension = false;
+        OpenFileDialog openFileDialog = new OpenFileDialog();
+        openFileDialog.Filter = "Image Files |*.png;*.jpg;*.jpeg;*.bmp;*.tif; *.tiff";
+        openFileDialog.CheckPathExists = true;
+        openFileDialog.AddExtension = false;
         if (null != FileNameBox) {
             String filename = FileNameBox.Text;
             String initialDir = Path.GetDirectoryName(filename);
@@ -118,14 +118,14 @@ public class EntryPoint {
                 filename = "";
             }
             if (Directory.Exists(initialDir)) {
-                openFileDialgo.InitialDirectory = initialDir;
+                openFileDialog.InitialDirectory = initialDir;
             }
-            openFileDialgo.DefaultExt = Path.GetExtension(filename);
-            openFileDialgo.FileName = Path.GetFileNameWithoutExtension(filename);
+            openFileDialog.DefaultExt = Path.GetExtension(filename);
+            openFileDialog.FileName = Path.GetFileNameWithoutExtension(filename);
         }
-        if (System.Windows.Forms.DialogResult.OK == openFileDialgo.ShowDialog()) {
+        if (System.Windows.Forms.DialogResult.OK == openFileDialog.ShowDialog()) {
             if (null != FileNameBox) {
-                FileNameBox.Text = Path.GetFullPath(openFileDialgo.FileName);
+                FileNameBox.Text = Path.GetFullPath(openFileDialog.FileName);
             }
         }
     }
