@@ -77,7 +77,8 @@ public class EntryPoint {
         GroupBox fadeCurveOptionGroup = new GroupBox();
         AddFadeCurveOption = AddRadioControl(fadeCurveOptionGroup,"Curved",6,buttonTop,true);
         AddFadeSharpOption = AddRadioControl(fadeCurveOptionGroup,"Curved",AddFadeCurveOption.Right + 10,buttonTop,true);
-
+        
+        buttonTop = AddFadeCheckBox.Bottom + 10;
 
         // BUTTONS
         Button okButton = new Button();
