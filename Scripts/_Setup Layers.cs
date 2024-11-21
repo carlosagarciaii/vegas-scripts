@@ -75,10 +75,14 @@ public class EntryPoint {
         buttonTop = AddFadeCheckBox.Bottom + 10;
 
         GroupBox fadeCurveOptionGroup = new GroupBox();
+        fadeCurveOptionGroup.Text = "Fade Options";
+        fadeCurveOptionGroup.Location = new System.Drawing.Point(6,buttonTop);
+        fadeCurveOptionGroup.Size = new System.Drawing.Size(50,460);
+
         AddFadeCurveOption = AddRadioControl(fadeCurveOptionGroup,"Curved",6,buttonTop,true);
         AddFadeSharpOption = AddRadioControl(fadeCurveOptionGroup,"Curved",AddFadeCurveOption.Right + 10,buttonTop,true);
         
-        buttonTop = AddFadeCheckBox.Bottom + 10;
+        buttonTop = fadeCurveOptionGroup.Bottom + 10;
 
         // BUTTONS
         Button okButton = new Button();
@@ -263,7 +267,6 @@ public class EntryPoint {
         return radiobutton;
     }   // AddRadioControl
 
-
     RadioButton AddRadioControl(GroupBox gbox, String labelName, int left, int top, bool enabled)
     {
         Label label = new Label();
@@ -280,7 +283,6 @@ public class EntryPoint {
         radiobutton.Top = top;
         radiobutton.Enabled = enabled;
         gbox.Controls.Add(radiobutton);
-
         return radiobutton;
     }   // AddRadioControl
 
