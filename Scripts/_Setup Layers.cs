@@ -46,8 +46,8 @@ public class EntryPoint {
         dlog.Text = "Setup Layers";
         dlog.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
         dlog.MaximizeBox = false;
-        dlog.Width = 610;
-        dlog.Height = 700;
+        dlog.Width = 550;
+        dlog.Height = 600;
         dlog.StartPosition = FormStartPosition.CenterScreen;
         dlog.FormClosing += this.HandleMainClosing;
 
