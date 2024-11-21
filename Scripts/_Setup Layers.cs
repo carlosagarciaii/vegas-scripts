@@ -100,6 +100,11 @@ public class EntryPoint {
         if (null == dlg) return;
         if (DialogResult.OK != dlg.DialogResult) return;
 
+        if (!File.Exists(FileNameBox.Text)){
+            DisplayErrorMsg(dlg,"File Not Found","Could not find the file", FileNameBox.Text);
+            return;
+        }
+
         VideoTrack newTrack = new VideoTrack(0,TrackNameBox.Text);
         myVegas.Project.Tracks.Add(newTrack);
 
@@ -210,6 +215,15 @@ public class EntryPoint {
         return radiobutton;
     }   // AddRadioControl
 
+    void DisplayErrorMsg(Form dlog, string msgBoxTitle, params string errorMsgLines ){
+            String title = msgBoxTitle;
+            StringBuilder msg = new StringBuilder();
+            foreach(string msgLine in errorMsgLines){
+                msg.Append(msgLine + "\n");
+            }
+            MessageBox.Show(dlg, msg.ToString(), msgBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+    }
 
 
 }   // EntryPoint
