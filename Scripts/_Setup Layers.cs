@@ -371,7 +371,7 @@ public class EntryPoint {
     }   //  ApplyPanCrop
 */
 
-    void SetTransparency(Form dlog, VideoEvent videoEvent, single opacity)
+    void SetTransparency(Form dlog, VideoEvent videoEvent, Single opacity)
     {
         if (opacity < 0.0 || opacity > 1.0)
         {
