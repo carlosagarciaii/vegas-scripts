@@ -215,7 +215,7 @@ public class EntryPoint {
         return radiobutton;
     }   // AddRadioControl
 
-    void DisplayErrorMsg(Form dlog, string msgBoxTitle, params string errorMsgLines ){
+    void DisplayErrorMsg(Form dlog, string msgBoxTitle, params string[] errorMsgLines ){
             String title = msgBoxTitle;
             StringBuilder msg = new StringBuilder();
             foreach(string msgLine in errorMsgLines){
