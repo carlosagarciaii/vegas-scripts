@@ -97,7 +97,7 @@ public class EntryPoint {
     void HandleBrowseClick(Object sender, EventArgs args)
     {
         OpenFileDialog openFileDialgo = new OpenFileDialog();
-        openFileDialgo.Filter = "All Files (*.*)|*.*";
+        openFileDialgo.Filter = "Image Files |*.png,*.jpg,*.jpeg";
         openFileDialgo.CheckPathExists = true;
         openFileDialgo.AddExtension = false;
         if (null != FileNameBox) {
