@@ -84,7 +84,7 @@ public class EntryPoint {
         FadeDurationTime = AddTextControl(dlog,"Fade Duration",9,460, buttonTop, "00:00:00:15");
 
         buttonTop = FadeDurationTime.Bottom + 10;
-        
+
         // BUTTONS
         Button okButton = new Button();
         okButton.Text = "OK";
@@ -119,14 +119,13 @@ public class EntryPoint {
         if (DialogResult.OK != dlg.DialogResult) return;
 
         string mediaFilePath = FileNameBox.Text;
+        string fadeDurationInput = FadeDurationTime.Text.Trim();
 
+        // Validation Checks
         if (!File.Exists(mediaFilePath)){
             DisplayErrorMsg(dlg,"File Not Found","Could not find the file", mediaFilePath);
             return;
         }
-
-        VideoTrack newTrack = new VideoTrack(0,TrackNameBox.Text);
-        myVegas.Project.Tracks.Add(newTrack);
 
         Media media = new Media(mediaFilePath);
         if (media == null)
@@ -139,6 +138,18 @@ public class EntryPoint {
             DisplayErrorMsg(dlg,"No Regions Found","No Regions were set in the project");
             return;
         }
+
+        var timeFormatRegex = @"^(\d\d:){3}\d\d$";
+        var match = Regex.Match(fadeDurationInput,timeFormatRegex);
+        if (!AddFadeNoneOption.Checked && !match.Success){
+            DisplayErrorMsg(dlg,"Fade Duration Error","An imporoper format was used for the fade duration.","Formatting should be: ","\t##:##:##:##");
+            return;
+        }
+
+
+        // Start Work
+        VideoTrack newTrack = new VideoTrack(0,TrackNameBox.Text);
+        myVegas.Project.Tracks.Add(newTrack);
         
         foreach (ScriptPortal.Vegas.Region region in myVegas.Project.Regions) {
             
@@ -152,7 +163,7 @@ public class EntryPoint {
             clipEvent.Takes.Add(take);
 
             if (!AddFadeNoneOption.Checked){
-                Timecode fadeDuration = new Timecode(FadeDurationTime.Text);
+                Timecode fadeDuration = new Timecode(fadeDurationInput);
                 if (!AddFadeNoneOption.Checked)
                 clipEvent.FadeIn.Length = fadeDuration;
                 clipEvent.FadeOut.Length = fadeDuration;
