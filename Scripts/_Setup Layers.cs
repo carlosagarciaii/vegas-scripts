@@ -96,10 +96,10 @@ public class EntryPoint {
 
     void HandleBrowseClick(Object sender, EventArgs args)
     {
-        SaveFileDialog saveFileDialog = new SaveFileDialog();
-        saveFileDialog.Filter = "All Files (*.*)|*.*";
-        saveFileDialog.CheckPathExists = true;
-        saveFileDialog.AddExtension = false;
+        OpenFileDialog openFileDialgo = new SaveFileDialog();
+        openFileDialgo.Filter = "All Files (*.*)|*.*";
+        openFileDialgo.CheckPathExists = true;
+        openFileDialgo.AddExtension = false;
         if (null != FileNameBox) {
             String filename = FileNameBox.Text;
             String initialDir = Path.GetDirectoryName(filename);
@@ -109,14 +109,14 @@ public class EntryPoint {
                 filename = "";
             }
             if (Directory.Exists(initialDir)) {
-                saveFileDialog.InitialDirectory = initialDir;
+                openFileDialgo.InitialDirectory = initialDir;
             }
-            saveFileDialog.DefaultExt = Path.GetExtension(filename);
-            saveFileDialog.FileName = Path.GetFileNameWithoutExtension(filename);
+            openFileDialgo.DefaultExt = Path.GetExtension(filename);
+            openFileDialgo.FileName = Path.GetFileNameWithoutExtension(filename);
         }
-        if (System.Windows.Forms.DialogResult.OK == saveFileDialog.ShowDialog()) {
+        if (System.Windows.Forms.DialogResult.OK == openFileDialgo.ShowDialog()) {
             if (null != FileNameBox) {
-                FileNameBox.Text = Path.GetFullPath(saveFileDialog.FileName);
+                FileNameBox.Text = Path.GetFullPath(openFileDialgo.FileName);
             }
         }
     }
