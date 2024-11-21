@@ -77,7 +77,7 @@ public class EntryPoint {
         GroupBox fadeCurveOptionGroup = new GroupBox();
         fadeCurveOptionGroup.Text = "Fade Options";
         fadeCurveOptionGroup.Location = new System.Drawing.Point(6,buttonTop);
-        fadeCurveOptionGroup.Size = new System.Drawing.Size(50,460);
+        fadeCurveOptionGroup.Size = new System.Drawing.Size(460,50);
 
         AddFadeCurveOption = AddRadioControl(fadeCurveOptionGroup,"Curved",6,buttonTop,true);
         AddFadeSharpOption = AddRadioControl(fadeCurveOptionGroup,"Curved",AddFadeCurveOption.Right + 10,buttonTop,true);
