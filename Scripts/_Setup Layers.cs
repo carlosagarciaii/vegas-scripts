@@ -72,8 +72,8 @@ public class EntryPoint {
         buttonTop = TrackNameBox.Bottom + 10;
 
         //  Fade Options
-
-        AddFadeNoneOption = AddRadioControl(dlog,"Fade: None",6,buttonTop,true);
+        Label fadeOptionsLabel = AddLabelOnly(dlog,"Fade Options:",6,buttonTop);
+        AddFadeNoneOption = AddRadioControl(dlog,"None",fadeOptionsLabel.Right + 5,buttonTop,true);
         AddFadeCurveOption = AddRadioControl(dlog,"Curved",AddFadeNoneOption.Right ,buttonTop,true);
         AddFadeSharpOption = AddRadioControl(dlog,"Sharp",AddFadeCurveOption.Right ,buttonTop,true);
         
