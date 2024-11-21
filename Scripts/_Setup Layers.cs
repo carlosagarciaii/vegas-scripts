@@ -242,7 +242,7 @@ public class EntryPoint {
         return checkBox;
     }   // AddCheckBox
 
-    RadioButton AddRadioControl(Form dlog, String labelName, int left, int top, bool enabled)
+    RadioButton AddRadioControl(Form dlog, String labelName, int left, int top, bool isChecked = false, bool enabled = true)
     {
         Label label = new Label();
         label.AutoSize = true;
@@ -257,6 +257,7 @@ public class EntryPoint {
         radiobutton.Width = 36;
         radiobutton.Top = top;
         radiobutton.Enabled = enabled;
+        radiobutton.Checked = isChecked;
         dlog.Controls.Add(radiobutton);
 
         return radiobutton;
