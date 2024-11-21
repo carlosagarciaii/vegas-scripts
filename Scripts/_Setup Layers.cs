@@ -83,7 +83,8 @@ public class EntryPoint {
 
         FadeDurationTime = AddTextControl(dlog,"Fade Duration",9,460, buttonTop, "00:00:00:15");
 
-
+        buttonTop = FadeDurationTime.Bottom + 10;
+        
         // BUTTONS
         Button okButton = new Button();
         okButton.Text = "OK";
