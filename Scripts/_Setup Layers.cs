@@ -130,7 +130,8 @@ public class EntryPoint {
             VideoEvent clipEvent = new VideoEvent(clipStart,clipLength);
             newTrack.Events.Add(clipEvent);
 
-
+            Take take = new Take(media.GetideoStreamByIndex(0));
+            clipEvent.Takes.Add(take);
 
         }
 
