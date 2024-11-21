@@ -109,7 +109,7 @@ public class EntryPoint {
     void HandleOpenFileClick(Object sender, EventArgs args)
     {
         OpenFileDialog openFileDialog = new OpenFileDialog();
-        openFileDialog.Filter = "Image Files |*.png;*.jpg;*.jpeg;*.bmp;*.tif; *.tiff";
+        openFileDialog.Filter = "Image Files |*.png;*.jpg;*.jpeg;*.bmp;*.tif; *.tiff|Video Files | *.mpg;*.mp2;*.mp4;*.mov;*.avc;*.m2v;*.m2t;*.mpa;*.m2ts;*.mxf;*.mxf;*.wmv;*.avi";
         openFileDialog.CheckPathExists = true;
         openFileDialog.AddExtension = false;
         if (null != FileNameBox) {
